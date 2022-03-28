@@ -1,5 +1,5 @@
 # School Content Manager (SCM)
-<div text-align: "justify">
+<div style="text-align: justify">
 <p>
   Este sistema tem como principal objectivo fazer a gestão de conteúdo acadêmico, visto que há uma dificuldade em obter o mesmo após o término de cada anao lectivo. Então esta app servirá como um repositório em que os usuários(estudades e professores) poderão postar/adicionar o conteúdo na plataforma para fácil acesso do mesmo.
 </p>
