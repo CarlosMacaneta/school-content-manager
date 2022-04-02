@@ -1,3 +1,30 @@
 <resources>
-    <string name="app_name">School Content Manager</string>
+    <string name="app_name">SCM</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_register_short">Register</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="new_user">New user?</string>
+    <string name="individual_plan">Individual plan</string>
+    <string name="aggregate_plan">Aggregate plan</string>
+    <string name="plan">Plan</string>
+    <string name="your_name">Your name</string>
+    <string name="card_num">5502 0102 5634</string>
+    <string name="card_expire">MM/YY</string>
+    <string name="expire">Expire</string>
+    <string name="amount">Amount</string>
+    <string name="remark">Remark</string>
+    <string name="payment">Payment</string>
+    <string name="full_name">Full name</string>
+    <string name="username">Username</string>
+    <string name="prompt_password_re_type">Re-type Password</string>
+    <string name="gender">Gender</string>
+    <string name="appbar_label_student_form">Student Form</string>
+    <string name="save">Save</string>
 </resources>

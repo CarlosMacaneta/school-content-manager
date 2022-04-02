@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1065692313313",
+    "project_id": "school-content-manager",
+    "storage_bucket": "school-content-manager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065692313313:android:430685eab8693afe03e9a0",
+        "android_client_info": {
+          "package_name": "com.cs.schoolcontentmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1065692313313-dsil6vll40oo7j0uuqls93vpkvvu2084.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbHnD4vAS53yzKZZ2PPz2XTrBcYFhs_QM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1065692313313-dsil6vll40oo7j0uuqls93vpkvvu2084.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

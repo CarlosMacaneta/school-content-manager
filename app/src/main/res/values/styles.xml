@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="EditText.Yellow" parent="@style/Widget.Design.TextInputLayout">
+        <item name="colorControlNormal">@color/grey_5</item>
+        <item name="colorControlActivated">@color/green_500</item>
+        <item name="colorControlHighlight">@color/green_500</item>
+    </style>
+
+    <style name="EditText.Grey" parent="@style/Theme.SchoolContentManager">
+        <item name="colorControlActivated">@color/grey_60</item>
+        <item name="colorControlHighlight">@color/grey_60</item>
+        <item name="colorControlNormal">@color/grey_40</item>
+    </style>
+</resources>
