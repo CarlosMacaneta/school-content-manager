@@ -1,6 +1,6 @@
-package com.cs.schoolcontentmanager.data.data
+package com.cs.schoolcontentmanager.data
 
-import com.cs.schoolcontentmanager.data.data.model.LoggedInUser
+import com.cs.schoolcontentmanager.domain.model.LoggedInUser
 
 /**
  * Class that requests authentication and user information from the remote data source and

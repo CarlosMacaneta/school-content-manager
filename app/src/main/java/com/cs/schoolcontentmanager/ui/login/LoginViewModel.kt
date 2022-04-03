@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
 import com.cs.schoolcontentmanager.R
-import com.cs.schoolcontentmanager.data.data.LoginRepository
-import com.cs.schoolcontentmanager.data.data.Result
+import com.cs.schoolcontentmanager.data.LoginRepository
+import com.cs.schoolcontentmanager.data.Result
 
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {

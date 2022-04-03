@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center|center_vertical"
+    android:padding="10dp"
+    android:orientation="vertical"
+    tools:context=".ui.home.upload.UploadFilesFragment">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:src="@drawable/upload"
+        android:contentDescription="@null"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/file_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/file_name"
+            android:layout_marginEnd="2.5dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_cloud_upload"
+            android:layout_marginStart="2.5dp"
+            android:text="@string/upload"
+            android:contentDescription="@string/upload"/>
+    </LinearLayout>
+</LinearLayout>

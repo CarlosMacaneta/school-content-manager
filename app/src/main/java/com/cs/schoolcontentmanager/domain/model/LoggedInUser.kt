@@ -1,4 +1,4 @@
-package com.cs.schoolcontentmanager.data.data.model
+package com.cs.schoolcontentmanager.domain.model
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

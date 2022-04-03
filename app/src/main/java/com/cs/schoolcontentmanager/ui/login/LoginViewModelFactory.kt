@@ -2,8 +2,8 @@ package com.cs.schoolcontentmanager.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.cs.schoolcontentmanager.data.data.LoginDataSource
-import com.cs.schoolcontentmanager.data.data.LoginRepository
+import com.cs.schoolcontentmanager.data.LoginDataSource
+import com.cs.schoolcontentmanager.data.LoginRepository
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

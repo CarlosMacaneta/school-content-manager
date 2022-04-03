@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
 import com.cs.schoolcontentmanager.databinding.ActivityLoginBinding
+import com.cs.schoolcontentmanager.ui.home.HomeActivity
 import com.cs.schoolcontentmanager.ui.signup.SignUpActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -32,8 +33,8 @@ class LoginActivity : AppCompatActivity() {
         val login = binding.login
         val loading = binding.loading*/
 
-        binding.signUp?.setOnClickListener {
-            startActivity(Intent(this, SignUpActivity::class.java))
+        binding.signUp.setOnClickListener {
+            startActivity(Intent(this, HomeActivity::class.java))
             finish()
         }
 

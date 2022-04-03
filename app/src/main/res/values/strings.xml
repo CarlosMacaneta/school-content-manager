@@ -27,4 +27,13 @@
     <string name="gender">Gender</string>
     <string name="appbar_label_student_form">Student Form</string>
     <string name="save">Save</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_upload_file">Upload files</string>
+    <string name="title_downloaded_files">Downloaded files</string>
+    <string name="upload">Upload</string>
+    <string name="file_name">File name</string>
+    <string name="create_new">Create new</string>
+    <string name="scan">Scan</string>
+    <string name="settings">Settings</string>
 </resources>

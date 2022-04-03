@@ -1,6 +1,6 @@
-package com.cs.schoolcontentmanager.data.data
+package com.cs.schoolcontentmanager.data
 
-import com.cs.schoolcontentmanager.data.data.model.LoggedInUser
+import com.cs.schoolcontentmanager.domain.model.LoggedInUser
 import java.io.IOException
 
 /**
