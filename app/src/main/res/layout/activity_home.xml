@@ -38,17 +38,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
-            android:background="?android:attr/windowBackground"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="@color/white"
+            android:background="@drawable/bg_rounded_corners"
+            app:backgroundTint="#2B353B"
             app:menu="@menu/bottom_nav_menu" />
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/bs_options"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        style="?attr/bottomSheetStyle"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
-
-    </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

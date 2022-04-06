@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/drawable/bg_rounded_corners.xml" value="0.2075" />
         <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/drawable/btn_rounded_primary.xml" value="0.2" />
         <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/drawable/circle.xml" value="0.2075" />
+        <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/drawable/circle_white.xml" value="0.2075" />
         <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.2075" />
         <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/layout-w936dp/activity_login.xml" value="0.1" />

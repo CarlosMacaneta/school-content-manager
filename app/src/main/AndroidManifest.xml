@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" android:required="true" />
-    <uses-feature android:name="android.hardware.camera.any" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -20,21 +20,21 @@
         android:theme="@style/Theme.SchoolContentManager">
         <activity
             android:name=".ui.home.HomeActivity"
-            android:exported="false"
-            android:label="@string/title_activity_home" />
+            android:exported="false" />
 
         <activity
             android:name=".ui.signup.SignUpActivity"
             android:exported="false"
-            android:theme="@style/Theme.Design.NoActionBar" />
-        <activity
-            android:name=".ui.splash.SplashActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Design.NoActionBar" />
+            android:theme="@style/Theme.SchoolContentManager.NoActionBar" />
         <activity
             android:name=".ui.login.LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SchoolContentManager.NoActionBar" />
+
+        <activity
+            android:name=".ui.splash.SplashActivity"
             android:exported="true"
-            >
+            android:theme="@style/Theme.SchoolContentManager.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

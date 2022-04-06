@@ -34,6 +34,11 @@ class LoginActivity : AppCompatActivity() {
         val loading = binding.loading*/
 
         binding.signUp.setOnClickListener {
+            startActivity(Intent(this, SignUpActivity::class.java))
+            finish()
+        }
+
+        binding.signIn?.setOnClickListener {
             startActivity(Intent(this, HomeActivity::class.java))
             finish()
         }
