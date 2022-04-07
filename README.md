@@ -24,7 +24,7 @@ Os Arquivos que serão armazenados na app, estarão em pdf ou em jpg sendo a pos
 <tbody>
   <tr>
     <td class="tg-c3ow">Images</td>
-    <td class="tg-c3ow">JPEG, PNG</td>
+    <td class="tg-c3ow">.jpg, .png</td>
   </tr>
   <tr>
     <td class="tg-c3ow">Word</td>
