@@ -2,12 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/notifications"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center|center_vertical"
-    android:padding="10dp"
     android:orientation="vertical"
     tools:context=".ui.home.upload.UploadFilesFragment">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     <ImageView
         android:layout_width="match_parent"

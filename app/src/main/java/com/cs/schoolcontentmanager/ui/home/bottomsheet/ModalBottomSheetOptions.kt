@@ -3,6 +3,7 @@ package com.cs.schoolcontentmanager.ui.home.bottomsheet
 import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.content.Intent.*
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -21,12 +22,17 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import com.cs.schoolcontentmanager.databinding.BottomSheetOptionsDialogBinding
+import com.cs.schoolcontentmanager.utils.Constants.mimeTypes
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.StorageReference
+import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.scopes.FragmentScoped
+import javax.inject.Inject
 
-class ModalBottomSheetOptions: BottomSheetDialogFragment() {
+@ActivityScoped
+class ModalBottomSheetOptions @Inject constructor(): BottomSheetDialogFragment() {
 
     private lateinit var binding: BottomSheetOptionsDialogBinding
 
@@ -39,11 +45,14 @@ class ModalBottomSheetOptions: BottomSheetDialogFragment() {
 
         cameraPermission()
 
-        val launcher: ActivityResultLauncher<String> = registerForActivityResult(
-            ActivityResultContracts.GetContent()
-        ) {
-            if (it != null) {
-                uploadFile(it)
+        val launcher: ActivityResultLauncher<Intent> = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == RESULT_OK && result.data != null) {
+                result.data.let {
+                    Toast.makeText(requireContext(), it?.data.toString(), Toast.LENGTH_LONG).show()
+                }
+                //uploadFile(it)
             }
         }
 
@@ -59,7 +68,14 @@ class ModalBottomSheetOptions: BottomSheetDialogFragment() {
             }
         }
 
-        binding.btnUpload.setOnClickListener { launcher.launch("application/*") }
+        binding.btnUpload.setOnClickListener {
+            val intent = Intent(ACTION_GET_CONTENT)
+            intent.type = "*/*"
+            intent.putExtra(EXTRA_MIME_TYPES, mimeTypes)
+            intent.addCategory(CATEGORY_OPENABLE)
+            intent.putExtra(EXTRA_LOCAL_ONLY, true)
+            launcher.launch(intent)
+        }
 
         binding.btnScan.setOnClickListener {
             launchCamera.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))

@@ -41,4 +41,12 @@
     <string name="want_exit">Are you sure you want to exit?</string>
     <string name="yes">yes</string>
     <string name="no">no</string>
+    <string name="phone_number">Phone number</string>
+    <string name="profile_info">Profile Information</string>
+    <string name="account_info">Account Information</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

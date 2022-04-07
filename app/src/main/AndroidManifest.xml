@@ -8,10 +8,17 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.capability.raw" />
+    <uses-feature android:name="android.hardware.camera.capability.manual_post_processing" />
+    <uses-feature android:name="android.hardware.camera.level.full" />
+    <uses-feature android:name="android.hardware.camera.capability.manual_sensor" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -30,7 +37,6 @@
             android:name=".ui.login.LoginActivity"
             android:exported="false"
             android:theme="@style/Theme.SchoolContentManager.NoActionBar" />
-
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true"
