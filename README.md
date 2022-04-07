@@ -14,4 +14,41 @@ Os Arquivos que serão armazenados na app, estarão em pdf ou em jpg sendo a pos
 </div>
 
 ## Supported documents formats
-<table><tr><td class="border_l border_r border_t border_b selected" colspan="1" rowspan="5" style="display: table-cell; text-align: center; vertical-align: top;"><div class="wrap"><div class="" contenteditable="false" style="margin: 10px 5px;"><p><span>Documents</span></p></div></div></td><td class="border_l border_r border_t border_b selected" colspan="1" rowspan="1" style="display: table-cell; text-align: center; vertical-align: top;"><div class="wrap"><div style="margin: 10px 5px;"><p><span>Images</span></p></div></div></td><td class="border_l border_r border_t border_b selected" colspan="1" rowspan="1" style="display: table-cell; text-align: center; vertical-align: top;"><div class="wrap"><div style="margin: 10px 5px;"><p><span>JPEG, PNG</span></p></div></div></td></tr><tr><td class="border_l border_r border_t border_b selected" colspan="1" rowspan="1" style="display: none; text-align: center; vertical-align: top;"><div class="wrap"><div style="margin: 10px 5px;"></div></div></td><td class="border_l border_r border_t border_b selected" colspan="1" rowspan="1" style="display: table-cell; text-align: center; vertical-align: top;"><div class="wrap"><div style="margin: 10px 5px;"><p><span>Word</span></p></div></div></td><td class="border_l border_r border_t border_b selected" colspan="1" rowspan="1" style="display: table-cell; text-align: center; vertical-align: top;"><div class="wrap"><div style="margin: 10px 5px;"><p><span>.doc, .docx</span></p></div></div></td></tr><tr><td class="border_l border_r border_t border_b selected" colspan="1" rowspan="1" style="display: none; text-align: center; vertical-align: top;"><div class="wrap"><div style="margin: 10px 5px;"></div></div></td><td class="border_l border_r border_t border_b selected" colspan="1" rowspan="1" style="display: table-cell; text-align: center; vertical-align: top;"><div class="wrap"><div style="margin: 10px 5px;"><p><span>PowerPoint</span></p></div></div></td><td class="border_l border_r border_t border_b selected" colspan="1" rowspan="1" style="display: table-cell; text-align: center; vertical-align: top;"><div class="wrap"><div style="margin: 10px 5px;"><p><span>.ppt, .pptx</span></p></div></div></td></tr><tr><td class="border_l border_r border_t border_b selected" colspan="1" rowspan="1" style="display: none; text-align: center; vertical-align: top;"><div class="wrap"><div style="margin: 10px 5px;"></div></div></td><td class="border_l border_r border_t border_b selected" colspan="1" rowspan="1" style="display: table-cell; text-align: center; vertical-align: top;"><div class="wrap"><div style="margin: 10px 5px;"><p><span>Excel</span></p></div></div></td><td class="border_l border_r border_t border_b selected" colspan="1" rowspan="1" style="display: table-cell; text-align: center; vertical-align: top;"><div class="wrap"><div style="margin: 10px 5px;"><p><span>.xls, .xlsx</span></p></div></div></td></tr><tr><td class="border_l border_r border_t border_b selected" colspan="1" rowspan="1" style="display: none; text-align: center; vertical-align: top;"><div class="wrap"><div style="margin: 10px 5px;"></div></div></td><td class="border_l border_r border_t border_b selected" colspan="1" rowspan="1" style="display: table-cell; text-align: center; vertical-align: top;"><div class="wrap"><div style="margin: 10px 5px;"><p><span>PDF</span></p></div></div></td><td class="border_l border_r border_t border_b selected" colspan="1" rowspan="1" style="display: table-cell; text-align: center; vertical-align: top;"><div class="wrap"><div style="margin: 10px 5px;"></div></div></td></tr></table>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-c3ow">Document</th>
+    <th class="tg-c3ow">Format</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-c3ow">Images</td>
+    <td class="tg-c3ow">JPEG, PNG</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Word</td>
+    <td class="tg-c3ow">.doc, .docx</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">PowerPoint</td>
+    <td class="tg-c3ow">.ppt, .pptx</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Excel</td>
+    <td class="tg-c3ow">.xls, .xlsx</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">PDF</td>
+    <td class="tg-c3ow">PDF</td>
+  </tr>
+</tbody>
+</table>
