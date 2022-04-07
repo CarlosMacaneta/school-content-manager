@@ -12,3 +12,9 @@ A app será desenvolvida tendo como referência a Universidade Eduardo Mondlane 
 Os Arquivos que serão armazenados na app, estarão em pdf ou em jpg sendo a posterior guardados em uma base de dados(Firebase). Para casos de acesso à aplicação os usuários terão que autenticar-se na app com o seu email institucional junto com sua senha. Após a autenticação o usuário poderá de seguida escolher o departamento, curso e o nível académico no qual pretende acessar ou postar(fazer upload) de algum conteúdo.
 </p>
 </div>
+
+## Supported documents formats
+|Images| Documents|
+|:---  | :---     |
+|JPG, PNG | .doc, .docx, .ppt, .pptx, .xls, .xlsx|
+|:---|:---|
