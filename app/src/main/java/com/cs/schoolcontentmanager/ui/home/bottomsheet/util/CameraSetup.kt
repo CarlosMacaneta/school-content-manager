@@ -10,9 +10,11 @@ import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
 import android.util.Log
-import android.util.Size
 import android.webkit.MimeTypeMap
-import androidx.camera.core.*
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
@@ -57,17 +59,7 @@ object CameraSetup {
             .requireLensFacing(CameraSelector.LENS_FACING_BACK)
             .build()
         preview.setSurfaceProvider(previewView.surfaceProvider)
-
-        val imageAnalysis = ImageAnalysis.Builder()
-            .setTargetResolution(Size(1280, 1080))
-            .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-            .build()
-            .also {
-                it.setAnalyzer(executorService, ImageAnalyzer { luma ->
-                    Log.d("IMG", "Average luminosity: $luma")
-                })
-            }
-
+        
         provider.bindToLifecycle(lifecycleOwner, cameraSelector, preview, imageCapture)
     }
 
