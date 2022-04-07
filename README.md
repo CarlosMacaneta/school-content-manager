@@ -40,7 +40,7 @@ Os Arquivos que serão armazenados na app, estarão em pdf ou em jpg sendo a pos
   </tr>
   <tr>
     <td class="tg-c3ow">PDF</td>
-    <td class="tg-c3ow">PDF</td>
+    <td class="tg-c3ow">.pdf</td>
   </tr>
 </tbody>
 </table>
