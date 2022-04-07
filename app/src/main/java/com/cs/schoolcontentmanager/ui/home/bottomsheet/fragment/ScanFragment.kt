@@ -88,7 +88,6 @@ class ScanFragment: DialogFragment() {
                     val provider: ProcessCameraProvider = cameraProviderFuture.get()
                     CameraSetup.bindPreview(
                         provider,
-                        executor(),
                         imageCapture,
                         previewView,
                         this

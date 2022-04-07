@@ -47,7 +47,6 @@ object CameraSetup {
 
     fun bindPreview(
         provider: ProcessCameraProvider,
-        executorService: Executor,
         imageCapture: ImageCapture,
         previewView: PreviewView,
         lifecycleOwner: LifecycleOwner
@@ -59,7 +58,7 @@ object CameraSetup {
             .requireLensFacing(CameraSelector.LENS_FACING_BACK)
             .build()
         preview.setSurfaceProvider(previewView.surfaceProvider)
-        
+
         provider.bindToLifecycle(lifecycleOwner, cameraSelector, preview, imageCapture)
     }
 
