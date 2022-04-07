@@ -9,27 +9,38 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.ActivityResultRegistry
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
+import androidx.core.util.forEach
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.cs.schoolcontentmanager.databinding.BottomSheetOptionsDialogBinding
+import com.cs.schoolcontentmanager.ui.home.bottomsheet.fragment.ScanFragment
+import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.CameraSetup
+import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.CameraSetup.cameraPermission
+import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.ImageAnalyzer
 import com.cs.schoolcontentmanager.utils.Constants.mimeTypes
+import com.google.android.gms.vision.Frame
+import com.google.android.gms.vision.text.TextBlock
+import com.google.android.gms.vision.text.TextRecognizer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
+import com.google.common.util.concurrent.ListenableFuture
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.StorageReference
 import dagger.hilt.android.scopes.ActivityScoped
-import dagger.hilt.android.scopes.FragmentScoped
+import java.util.concurrent.ExecutorService
 import javax.inject.Inject
+
 
 @ActivityScoped
 class ModalBottomSheetOptions @Inject constructor(): BottomSheetDialogFragment() {
@@ -39,11 +50,14 @@ class ModalBottomSheetOptions @Inject constructor(): BottomSheetDialogFragment()
     private lateinit var storageRef: StorageReference
     private lateinit var dbRef: DatabaseReference
 
+    private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
+    private lateinit var executorService: ExecutorService
+    private lateinit var previewView: PreviewView
+    private lateinit var imageAnalyser: ImageAnalyzer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = BottomSheetOptionsDialogBinding.inflate(layoutInflater)
-
-        cameraPermission()
 
         val launcher: ActivityResultLauncher<Intent> = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -63,6 +77,7 @@ class ModalBottomSheetOptions @Inject constructor(): BottomSheetDialogFragment()
                 result.data.let {
                     val img: Bitmap = it?.extras?.get("data") as Bitmap
 
+
                     Toast.makeText(requireContext(), img.toString(), Toast.LENGTH_LONG).show()
                 }
             }
@@ -78,7 +93,8 @@ class ModalBottomSheetOptions @Inject constructor(): BottomSheetDialogFragment()
         }
 
         binding.btnScan.setOnClickListener {
-            launchCamera.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
+            //launchCamera.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))\
+            openCamera()
         }
     }
 
@@ -92,6 +108,7 @@ class ModalBottomSheetOptions @Inject constructor(): BottomSheetDialogFragment()
 
     private fun uploadFile(data: Uri) {
         Snackbar.make(binding.root, data.toString(), Snackbar.LENGTH_LONG).show()
+
         /*val ref = storageRef.child("upload/${System.currentTimeMillis()}")
         ref.putFile(data).addOnSuccessListener {
 
@@ -109,13 +126,31 @@ class ModalBottomSheetOptions @Inject constructor(): BottomSheetDialogFragment()
         }*/
     }
 
-    private fun cameraPermission() {
-        if (ContextCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(),
-                listOf(Manifest.permission.CAMERA).toTypedArray(),
-                100
-            )
+    private fun openCamera() {
+
+        val fragmentManager = requireActivity().supportFragmentManager
+
+        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        transaction.add(android.R.id.content, ScanFragment()).addToBackStack(null).commit()
+
+        dismiss()
+    }
+
+    private fun getText(bitmap: Bitmap) {
+        val recognizer = TextRecognizer.Builder(requireContext()).build()
+
+        if (!recognizer.isOperational) {
+            Toast.makeText(requireContext(), "An error occurred", Toast.LENGTH_SHORT).show()
+        } else {
+            val frame = Frame.Builder().setBitmap(bitmap).build()
+            val textBlocks: SparseArray<TextBlock> = recognizer.detect(frame)
+
+            val text = StringBuilder()
+
+            textBlocks.forEach { _, value -> text.append(value).append("\n") }
+
+            Toast.makeText(requireContext(), text.toString(), Toast.LENGTH_LONG).show()
         }
     }
 }

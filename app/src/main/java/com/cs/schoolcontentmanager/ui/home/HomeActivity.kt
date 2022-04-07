@@ -5,13 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.cs.schoolcontentmanager.R
 import com.cs.schoolcontentmanager.databinding.ActivityHomeBinding
 import com.cs.schoolcontentmanager.ui.home.bottomsheet.ModalBottomSheetOptions
+import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.CameraSetup
 import com.cs.schoolcontentmanager.utils.Constants.BS_OPTIONS
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -36,6 +35,8 @@ class HomeActivity : AppCompatActivity() {
         binding.topAppBar.setupWithNavController(navController, appBarConfiguration)
 
         NavigationUI.setupWithNavController(binding.navView, navController)
+
+        CameraSetup.cameraPermission(this)
 
         binding.fabMore.setOnClickListener {
             options.show(supportFragmentManager, BS_OPTIONS)
