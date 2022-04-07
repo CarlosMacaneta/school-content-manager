@@ -14,7 +14,6 @@ Os Arquivos que serão armazenados na app, estarão em pdf ou em jpg sendo a pos
 </div>
 
 ## Supported documents formats
-|Images| Documents|
-|:---  | :---     |
-|JPG, PNG | .doc, .docx, .ppt, .pptx, .xls, .xlsx|
-|:---|:---|
+| Documents| Word | PowerPoint| Excel | Images | 
+|    | .doc, .docx| .ppt, .pptx | .xls, .xlsx|JPG, PNG|
+
