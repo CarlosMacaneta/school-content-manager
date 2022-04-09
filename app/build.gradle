@@ -54,6 +54,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // firebase
+    implementation 'com.google.firebase:firebase-core:20.1.2'
     implementation 'com.google.firebase:firebase-database:20.0.4'
     implementation 'com.google.firebase:firebase-storage:20.0.1'
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'

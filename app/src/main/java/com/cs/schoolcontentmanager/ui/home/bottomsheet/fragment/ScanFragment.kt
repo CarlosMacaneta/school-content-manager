@@ -4,11 +4,14 @@ import android.Manifest
 import android.app.Dialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Toast
 import androidx.camera.core.ImageCapture
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
@@ -19,8 +22,12 @@ import com.cs.schoolcontentmanager.databinding.PreviewScanBinding
 import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.CameraSetup
 import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.CameraSetup.cameraPermission
 import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.CameraSetup.imgCapture
+import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.DetectText.detectText
 import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.ImageAnalyzer
 import com.cs.schoolcontentmanager.utils.Constants.FOLDER
+import com.google.android.gms.vision.Frame
+import com.google.android.gms.vision.text.TextBlock
+import com.google.android.gms.vision.text.TextRecognizer
 import com.google.common.util.concurrent.ListenableFuture
 import java.io.File
 import java.util.concurrent.ExecutionException
@@ -66,7 +73,14 @@ class ScanFragment: DialogFragment() {
                 outputDirectory,
                 imageCapture,
                 executor(),
-                requireContext()) { dismiss() }
+                requireContext())
+            {
+                try {
+                    detectText(requireContext(), it)
+                    //crop(requireContext(), it, this)
+                    dismiss()
+                } catch (exc: Exception) {}
+            }
         }
     }
 
@@ -108,5 +122,25 @@ class ScanFragment: DialogFragment() {
             File(it, FOLDER).apply { mkdirs() } }
         return if (mediaDir != null && mediaDir.exists())
             mediaDir else appContext.filesDir
+    }
+
+    private fun getText(bitmap: Bitmap) {
+        val recognizer = TextRecognizer.Builder(requireContext()).build()
+
+        if (!recognizer.isOperational) {
+            Toast.makeText(requireContext(), "An error occurred", Toast.LENGTH_SHORT).show()
+        } else {
+            val frame = Frame.Builder().setBitmap(bitmap).build()
+            val textBlocks: SparseArray<TextBlock> = recognizer.detect(frame)
+
+            val text = StringBuilder()
+
+            for (i in 0 until textBlocks.size()) {
+                text.append(textBlocks.valueAt(i).value)
+                text.append("\n")
+            }
+
+            Toast.makeText(requireContext(), text.toString(), Toast.LENGTH_LONG).show()
+        }
     }
 }
