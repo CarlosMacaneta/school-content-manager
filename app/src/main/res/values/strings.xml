@@ -50,4 +50,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="capture">Capture</string>
+    <string name="description">Description</string>
+    <string name="file_details">File details</string>
 </resources>

@@ -4,9 +4,7 @@ import android.Manifest
 import android.app.Dialog
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,12 +23,8 @@ import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.CameraSetup.imgCaptu
 import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.DetectText.detectText
 import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.ImageAnalyzer
 import com.cs.schoolcontentmanager.utils.Constants.FOLDER
-import com.google.android.gms.vision.Frame
-import com.google.android.gms.vision.text.TextBlock
-import com.google.android.gms.vision.text.TextRecognizer
 import com.google.common.util.concurrent.ListenableFuture
 import java.io.File
-import java.util.concurrent.ExecutionException
 import java.util.concurrent.Executor
 
 class ScanFragment: DialogFragment() {
@@ -106,10 +100,8 @@ class ScanFragment: DialogFragment() {
                         previewView,
                         this
                     )
-                } catch (e: ExecutionException) {
-                    e.printStackTrace()
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
+                } catch (e: Exception) {
+                    Toast.makeText(requireContext(), "Error opening camera", Toast.LENGTH_SHORT).show()
                 }
             }, executor())
         } else cameraPermission(requireContext())
@@ -122,25 +114,5 @@ class ScanFragment: DialogFragment() {
             File(it, FOLDER).apply { mkdirs() } }
         return if (mediaDir != null && mediaDir.exists())
             mediaDir else appContext.filesDir
-    }
-
-    private fun getText(bitmap: Bitmap) {
-        val recognizer = TextRecognizer.Builder(requireContext()).build()
-
-        if (!recognizer.isOperational) {
-            Toast.makeText(requireContext(), "An error occurred", Toast.LENGTH_SHORT).show()
-        } else {
-            val frame = Frame.Builder().setBitmap(bitmap).build()
-            val textBlocks: SparseArray<TextBlock> = recognizer.detect(frame)
-
-            val text = StringBuilder()
-
-            for (i in 0 until textBlocks.size()) {
-                text.append(textBlocks.valueAt(i).value)
-                text.append("\n")
-            }
-
-            Toast.makeText(requireContext(), text.toString(), Toast.LENGTH_LONG).show()
-        }
     }
 }

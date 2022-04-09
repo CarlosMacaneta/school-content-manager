@@ -7,6 +7,7 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions.DEFAULT_OPTIONS
 
+@Suppress("UNUSED_VARIABLE")
 object DetectText {
 
     @Throws(Exception::class)
