@@ -7,13 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.core.app.NotificationCompat.PRIORITY_DEFAULT
+import androidx.core.app.NotificationCompat.PRIORITY_LOW
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.DialogFragment
+import com.cs.schoolcontentmanager.data.DbUtil.setCustomMetadata
 import com.cs.schoolcontentmanager.databinding.DialogFileBinding
 import com.cs.schoolcontentmanager.domain.model.File
-import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.FileSetup
+import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.FileSetup.fileExtension
+import com.cs.schoolcontentmanager.utils.Constants
 import com.cs.schoolcontentmanager.utils.Constants.FILE_NAME
+import com.cs.schoolcontentmanager.utils.Constants.FILE_URI
 import com.cs.schoolcontentmanager.utils.Constants.UPLOADS
-import com.google.android.material.snackbar.Snackbar
+import com.cs.schoolcontentmanager.utils.Util.notificationBuilder
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.StorageReference
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,10 +48,16 @@ class FileDetailsFragment: DialogFragment() {
         binding.btClose.setOnClickListener { dismiss() }
 
         arguments?.getString(FILE_NAME)?.let {
-            binding.tfFileName.suffixText = ".${FileSetup.fileExtension(it)}"
+            binding.tfFileName.suffixText = ".${fileExtension(it)}"
             binding.tfFileName.editText?.setText(it.split('.')[0])
         }
 
+        val uri = arguments?.getString(FILE_URI)
+
+        binding.btUpload.setOnClickListener {
+            uri?.let { uploadFile(Uri.parse(it)) }
+            dismiss()
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -56,10 +68,17 @@ class FileDetailsFragment: DialogFragment() {
 
     @Suppress("ControlFlowWithEmptyBody")
     private fun uploadFile(data: Uri) {
-        Snackbar.make(binding.root, data.toString(), Snackbar.LENGTH_LONG).show()
+        val builder = notificationBuilder(requireContext(), true)
+
+        val notificationManager = NotificationManagerCompat.from(requireContext())
+
+        builder.setProgress(Constants.PROGRESS_MAX, Constants.PROGRESS_CURRENT, false)
+        notificationManager.notify(Constants.NOTIFICATION_ID, builder.build())
+
+        val metadata = setCustomMetadata()
 
         val ref = storageRef.child("${UPLOADS}/${System.currentTimeMillis()}")
-        ref.putFile(data).addOnSuccessListener {
+        ref.putFile(data, metadata).addOnSuccessListener {
 
             val uri = it.storage.downloadUrl
 
@@ -72,8 +91,18 @@ class FileDetailsFragment: DialogFragment() {
 
             dbRef.push().key?.let { key -> dbRef.child(key).setValue(file) }
 
-            Snackbar.make(binding.root, "File uploaded successful", Snackbar.LENGTH_LONG).show()
-            //close progress
+            builder.setProgress(0, 0, false)
+            builder.setContentText("Upload complete")
+            builder.priority = PRIORITY_DEFAULT
+            notificationManager.notify(Constants.NOTIFICATION_ID, builder.build())
+        }.addOnProgressListener {
+
+            val progress = (100.0 * it.bytesTransferred) / it.totalByteCount
+
+            builder.priority = PRIORITY_LOW
+            builder.setProgress(Constants.PROGRESS_MAX, progress.toInt(), false)
+            builder.setContentText("${progress.toInt()}%")
+            notificationManager.notify(Constants.NOTIFICATION_ID, builder.build())
         }
     }
 }

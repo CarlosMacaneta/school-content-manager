@@ -52,4 +52,5 @@
     <string name="capture">Capture</string>
     <string name="description">Description</string>
     <string name="file_details">File details</string>
+    <string name="channel_description">It\'s launches when an upload or download start</string>
 </resources>

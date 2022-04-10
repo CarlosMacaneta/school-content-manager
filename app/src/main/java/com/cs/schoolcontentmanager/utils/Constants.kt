@@ -17,4 +17,12 @@ object Constants {
 
     const val CONTENT = "content"
     const val FILE_NAME = "fileName"
+    const val FILE_URI = "fileUri"
+
+    const val PROGRESS_MAX = 100
+    const val PROGRESS_CURRENT = 0
+
+    const val CHANNEL_ID = "upDown"
+    const val CHANNEL_NAME = "uploadOrDownload"
+    const val NOTIFICATION_ID = 1
 }

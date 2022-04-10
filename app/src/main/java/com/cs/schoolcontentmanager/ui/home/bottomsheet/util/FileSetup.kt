@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.provider.OpenableColumns
 import android.util.Log
@@ -67,5 +68,21 @@ object FileSetup {
         val cR: ContentResolver = context.contentResolver
         val mime = MimeTypeMap.getSingleton()
         return mime.getExtensionFromMimeType(cR.getType(uri))
+    }
+
+    fun fileSize(context: Context, uri: Uri): String? {
+        var fileSize: String? = null
+        val cursor: Cursor? = context.contentResolver
+            .query(uri, null, null, null, null, null)
+        cursor.use {
+            if (it != null && it.moveToFirst()) {
+
+                val sizeIndex: Int = it.getColumnIndex(OpenableColumns.SIZE)
+                if (!it.isNull(sizeIndex)) {
+                    fileSize = it.getString(sizeIndex)
+                }
+            }
+        }
+        return fileSize
     }
 }

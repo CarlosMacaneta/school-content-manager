@@ -32,9 +32,11 @@ class ModalBottomSheetOptions @Inject constructor(): BottomSheetDialogFragment()
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == RESULT_OK && result.data != null) {
-                launchFragment(requireContext(), FileDetailsFragment(),
-                    result.data?.data?.let { uri -> fileName(uri, requireContext()).toString() }
-                ).also { dismiss() }
+                result?.data?.data?.let { uri ->
+                    launchFragment(requireContext(), FileDetailsFragment(), uri,
+                        fileName(uri, requireContext())
+                    ).also { dismiss() }
+                }
             }
         }
 

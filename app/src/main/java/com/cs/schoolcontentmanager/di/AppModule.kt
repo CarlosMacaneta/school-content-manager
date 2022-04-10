@@ -1,8 +1,9 @@
 package com.cs.schoolcontentmanager.di
 
-import com.cs.schoolcontentmanager.utils.Constants
+import com.cs.schoolcontentmanager.utils.Constants.UPLOADS
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,9 +15,9 @@ import javax.inject.Singleton
 object AppModule {
 
     @Provides
-    @Singleton fun providesStorageRef() = FirebaseStorage.getInstance().reference
+    @Singleton fun providesStorageRef() = Firebase.storage.reference
 
     @Provides
-    @Singleton fun providesUploadDbRef() = FirebaseDatabase.getInstance().getReference(Constants.UPLOADS)
+    @Singleton fun providesUploadDbRef() = FirebaseDatabase.getInstance().getReference(UPLOADS)
 
 }
