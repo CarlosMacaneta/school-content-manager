@@ -11,6 +11,7 @@ import com.cs.schoolcontentmanager.databinding.ActivityHomeBinding
 import com.cs.schoolcontentmanager.ui.home.bottomsheet.ModalBottomSheetOptions
 import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.CameraSetup
 import com.cs.schoolcontentmanager.utils.Constants.BS_OPTIONS
+import com.google.firebase.database.DatabaseReference
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -21,6 +22,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     @Inject lateinit var options: ModalBottomSheetOptions
+    @Inject lateinit var dbRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,8 @@ class HomeActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.navView, navController)
 
         CameraSetup.cameraPermission(this)
+
+        dbRef.keepSynced(true)
 
         binding.fabMore.setOnClickListener {
             options.show(supportFragmentManager, BS_OPTIONS)
