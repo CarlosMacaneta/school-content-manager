@@ -1,4 +1,4 @@
-package com.cs.schoolcontentmanager.data
+package com.cs.schoolcontentmanager.ui.data
 
 /**
  * A generic class that holds a value with its loading status.

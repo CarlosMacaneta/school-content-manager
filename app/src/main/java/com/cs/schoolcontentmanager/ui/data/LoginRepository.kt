@@ -1,13 +1,14 @@
-package com.cs.schoolcontentmanager.data
+package com.cs.schoolcontentmanager.ui.data
 
-import com.cs.schoolcontentmanager.domain.model.LoggedInUser
+import com.cs.schoolcontentmanager.ui.data.model.LoggedInUser
+import javax.inject.Inject
 
 /**
  * Class that requests authentication and user information from the remote data source and
  * maintains an in-memory cache of login status and user credentials information.
  */
 
-class LoginRepository(val dataSource: LoginDataSource) {
+class LoginRepository @Inject constructor (val dataSource: LoginDataSource) {
 
     // in-memory cache of the loggedInUser object
     var user: LoggedInUser? = null
@@ -27,7 +28,7 @@ class LoginRepository(val dataSource: LoginDataSource) {
         dataSource.logout()
     }
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
+    suspend fun login(username: String, password: String): Result<LoggedInUser> {
         // handle login
         val result = dataSource.login(username, password)
 

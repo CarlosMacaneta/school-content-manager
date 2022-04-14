@@ -17,7 +17,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.StorageReference
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -25,6 +31,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
+    @Inject lateinit var storageRef: StorageReference
     @Inject lateinit var dbRef: DatabaseReference
 
     override fun onCreateView(
@@ -54,7 +61,7 @@ class HomeFragment : Fragment() {
     private fun getFiles() {
         val files = ArrayList<File>()
 
-        dbRef.addValueEventListener(object : ValueEventListener {
+        dbRef.orderByValue().addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.children.forEach {
                     it.getValue(File::class.java)?.let { file -> files.add(file) }
@@ -68,6 +75,22 @@ class HomeFragment : Fragment() {
                         "make sure that you are connected to internet...", Toast.LENGTH_LONG).show()
             }
         })
+    }
+
+    private fun downLoadFiles() {
+
+    }
+
+    private fun downloadFile(fileUrl: String) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val sRef = storageRef.child(fileUrl).downloadUrl.await()
+
+
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(requireContext(), "This download couldn't be finished.", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun navigateOut() {

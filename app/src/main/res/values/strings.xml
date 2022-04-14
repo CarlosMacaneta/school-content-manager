@@ -7,7 +7,7 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="action_register_short">Register</string>
     <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_username">Not a valid email</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="new_user">New user?</string>
@@ -53,4 +53,5 @@
     <string name="description">Description</string>
     <string name="file_details">File details</string>
     <string name="channel_description">It\'s launches when an upload or download start</string>
+    <string name="authenticating">Authenticating</string>
 </resources>

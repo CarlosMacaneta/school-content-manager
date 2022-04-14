@@ -18,6 +18,9 @@ object Constants {
     const val CONTENT = "content"
     const val FILE_NAME = "fileName"
     const val FILE_URI = "fileUri"
+    const val FILE_SIZE = "fileSize"
+    const val FILE_STAMPS = "fileStamps"
+    
 
     const val PROGRESS_MAX = 100
     const val PROGRESS_CURRENT = 0
