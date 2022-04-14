@@ -1,5 +1,6 @@
 package com.cs.schoolcontentmanager.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.cs.schoolcontentmanager.R
 import com.cs.schoolcontentmanager.databinding.ActivityLoginBinding
+import com.cs.schoolcontentmanager.domain.model.login.LoggedInUserView
+import com.cs.schoolcontentmanager.ui.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -57,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
                 showLoginFailed(loginResult.error)
             }
             if (loginResult.success != null) {
+                setResult(RESULT_OK)
                 updateUiWithUser(loginResult.success)
             }
         })
@@ -101,7 +105,10 @@ class LoginActivity : AppCompatActivity() {
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
-        // TODO : initiate successful logged in experience
+
+        startActivity(Intent(this, HomeActivity::class.java))
+        finish()
+
         Toast.makeText(
             applicationContext,
             "$welcome $displayName",

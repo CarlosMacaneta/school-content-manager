@@ -5,8 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cs.schoolcontentmanager.R
-import com.cs.schoolcontentmanager.ui.data.LoginRepository
-import com.cs.schoolcontentmanager.ui.data.Result
+import com.cs.schoolcontentmanager.data.Result
+import com.cs.schoolcontentmanager.data.repository.LoginRepository
+import com.cs.schoolcontentmanager.domain.model.login.LoggedInUserView
+import com.cs.schoolcontentmanager.domain.model.login.LoginFormState
+import com.cs.schoolcontentmanager.domain.model.login.LoginResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -14,7 +17,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel
-@Inject  constructor(private val loginRepository: LoginRepository) : ViewModel() {
+@Inject  constructor(
+    private val loginRepository: LoginRepository
+) : ViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm

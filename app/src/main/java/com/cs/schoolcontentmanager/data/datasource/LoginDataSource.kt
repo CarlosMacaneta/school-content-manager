@@ -1,6 +1,7 @@
-package com.cs.schoolcontentmanager.ui.data
+package com.cs.schoolcontentmanager.data.datasource
 
-import com.cs.schoolcontentmanager.ui.data.model.LoggedInUser
+import com.cs.schoolcontentmanager.data.Result
+import com.cs.schoolcontentmanager.domain.model.login.LoggedInUser
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await

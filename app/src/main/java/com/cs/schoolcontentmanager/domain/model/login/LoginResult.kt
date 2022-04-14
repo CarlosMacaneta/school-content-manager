@@ -1,4 +1,4 @@
-package com.cs.schoolcontentmanager.ui.login
+package com.cs.schoolcontentmanager.domain.model.login
 
 /**
  * Authentication result : success (user details) or error message.

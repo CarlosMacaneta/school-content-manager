@@ -1,6 +1,8 @@
-package com.cs.schoolcontentmanager.ui.data
+package com.cs.schoolcontentmanager.data.repository
 
-import com.cs.schoolcontentmanager.ui.data.model.LoggedInUser
+import com.cs.schoolcontentmanager.data.datasource.LoginDataSource
+import com.cs.schoolcontentmanager.data.Result
+import com.cs.schoolcontentmanager.domain.model.login.LoggedInUser
 import javax.inject.Inject
 
 /**
