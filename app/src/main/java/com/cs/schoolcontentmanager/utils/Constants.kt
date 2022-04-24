@@ -28,4 +28,9 @@ object Constants {
     const val CHANNEL_ID = "upDown"
     const val CHANNEL_NAME = "uploadOrDownload"
     const val NOTIFICATION_ID = 1
+
+    const val COURSES = "courses"
+
+    const val LIST_VIEW = "list_view"
+    const val GRID_VIEW = "grid_view"
 }

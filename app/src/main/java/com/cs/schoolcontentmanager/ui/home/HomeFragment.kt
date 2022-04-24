@@ -1,17 +1,21 @@
 package com.cs.schoolcontentmanager.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
+import android.view.inputmethod.EditorInfo
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.cs.schoolcontentmanager.R
 import com.cs.schoolcontentmanager.databinding.FragmentHomeBinding
 import com.cs.schoolcontentmanager.domain.model.File
 import com.cs.schoolcontentmanager.ui.home.adapter.FileAdapter
+import com.cs.schoolcontentmanager.utils.Constants.GRID_VIEW
+import com.cs.schoolcontentmanager.utils.Constants.LIST_VIEW
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -26,6 +30,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
@@ -34,12 +39,15 @@ class HomeFragment : Fragment() {
     @Inject lateinit var storageRef: StorageReference
     @Inject lateinit var dbRef: DatabaseReference
 
+    private lateinit var fileAdapter: FileAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -59,15 +67,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun getFiles() {
-        val files = ArrayList<File>()
-
         dbRef.orderByValue().addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                val files = mutableListOf<File>()
+
                 snapshot.children.forEach {
                     it.getValue(File::class.java)?.let { file -> files.add(file) }
                 }
-
-                binding.rvFile.adapter = FileAdapter(files)
+                fileAdapter = FileAdapter(files)
+                binding.rvFile.adapter = fileAdapter.apply {
+                    notifyItemChanged(0, itemCount.dec())
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -89,6 +99,61 @@ class HomeFragment : Fragment() {
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
                 Toast.makeText(requireContext(), "This download couldn't be finished.", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private lateinit var topMenu: Menu
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.top_app_bar, menu)
+        topMenu = menu
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val gridItem = topMenu.findItem(R.id.grid_view)
+        val listItem = topMenu.findItem(R.id.list_view)
+
+        return when(item.itemId) {
+            R.id.search -> {
+                val searchView = item.actionView as SearchView
+
+                searchView.isIconified = true
+
+                searchView.imeOptions = EditorInfo.IME_ACTION_SEARCH
+
+                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(p0: String?): Boolean {
+                        Toast.makeText(requireContext(), p0.toString(), Toast.LENGTH_SHORT).show()
+                        return true
+                    }
+
+                    override fun onQueryTextChange(p0: String?): Boolean {
+                        Log.e("jk", "onQueryTextChange: $p0", )
+                        return true
+                    }
+                })
+                true
+            }
+            R.id.grid_view -> {
+                gridItem.isVisible = false
+                listItem.isVisible = true
+
+                binding.rvFile.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+                fileAdapter.setViewType(GRID_VIEW)
+                true
+            }
+            R.id.list_view -> {
+                gridItem.isVisible = true
+                listItem.isVisible = false
+
+                binding.rvFile.layoutManager = LinearLayoutManager(requireContext())
+                fileAdapter.setViewType(LIST_VIEW)
+                true
+            }
+            else -> {
+                Toast.makeText(requireContext(), "Filter", Toast.LENGTH_SHORT).show()
+                true
             }
         }
     }

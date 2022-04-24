@@ -6,15 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.cs.schoolcontentmanager.databinding.BottomSheetOptionsDialogBinding
 import com.cs.schoolcontentmanager.ui.home.bottomsheet.fragment.FileDetailsFragment
 import com.cs.schoolcontentmanager.ui.home.bottomsheet.fragment.ScanFragment
-import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.FileSetup.extension
 import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.FileSetup.fileName
-import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.FileSetup.fileSize
 import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.FileSetup.intentFileChooser
 import com.cs.schoolcontentmanager.utils.Util.launchFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -36,8 +33,6 @@ class ModalBottomSheetOptions @Inject constructor(): BottomSheetDialogFragment()
         ) { result ->
             if (result.resultCode == RESULT_OK && result.data != null) {
                 result?.data?.data?.let { uri ->
-                    Toast.makeText(requireContext(), fileSize(requireContext(), uri)+", "+
-                        extension(requireContext(), uri), Toast.LENGTH_LONG).show()
                     launchFragment(requireContext(), FileDetailsFragment(), uri,
                         fileName(uri, requireContext())
                     ).also { dismiss() }
