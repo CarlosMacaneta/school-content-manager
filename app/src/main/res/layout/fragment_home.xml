@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".presenters.ui.home.HomeFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topAppBar"
