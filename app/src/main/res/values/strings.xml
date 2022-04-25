@@ -54,4 +54,10 @@
     <string name="file_details">File details</string>
     <string name="channel_description">It\'s launches when an upload or download start</string>
     <string name="authenticating">Authenticating</string>
+    <string name="subject">Subject</string>
+    <string name="course">Course</string>
+    <string name="download">Download</string>
+    <string name="grid">Grid view</string>
+    <string name="list_view">List view</string>
+    <string name="close_camera">Close camera</string>
 </resources>

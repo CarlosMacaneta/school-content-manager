@@ -6,16 +6,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.cs.schoolcontentmanager.databinding.BottomSheetOptionsDialogBinding
+<<<<<<< HEAD:app/src/main/java/com/cs/schoolcontentmanager/presenters/ui/home/bottomsheet/ModalBottomSheetOptions.kt
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.fragment.FileDetailsFragment
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.fragment.ScanFragment
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup.extension
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup.fileName
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup.fileSize
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup.intentFileChooser
+=======
+import com.cs.schoolcontentmanager.ui.home.bottomsheet.fragment.FileDetailsFragment
+import com.cs.schoolcontentmanager.ui.home.bottomsheet.fragment.ScanFragment
+import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.FileSetup.fileName
+import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.FileSetup.intentFileChooser
+>>>>>>> 5a8014da2a64a77760a50238017f34e85dc7a6a6:app/src/main/java/com/cs/schoolcontentmanager/ui/home/bottomsheet/ModalBottomSheetOptions.kt
 import com.cs.schoolcontentmanager.utils.Util.launchFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.scopes.ActivityScoped
@@ -36,8 +42,6 @@ class ModalBottomSheetOptions @Inject constructor(): BottomSheetDialogFragment()
         ) { result ->
             if (result.resultCode == RESULT_OK && result.data != null) {
                 result?.data?.data?.let { uri ->
-                    Toast.makeText(requireContext(), fileSize(requireContext(), uri)+", "+
-                        extension(requireContext(), uri), Toast.LENGTH_LONG).show()
                     launchFragment(requireContext(), FileDetailsFragment(), uri,
                         fileName(uri, requireContext())
                     ).also { dismiss() }

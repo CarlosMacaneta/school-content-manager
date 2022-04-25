@@ -6,6 +6,12 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,48 +21,68 @@
             android:id="@+id/logo"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            tools:src="@drawable/ic_back"
+            tools:src="@drawable/pdf_32"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@null" />
 
-        <TextView
-            android:id="@+id/file_name"
+        <LinearLayout
+            android:id="@+id/lyt_details"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:ellipsize="end"
-            android:lineSpacingExtra="0.dp"
-            android:maxLines="2"
-            android:textColor="@color/grey_600"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical"
             app:layout_constraintEnd_toStartOf="@+id/download"
             app:layout_constraintStart_toEndOf="@id/logo"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Child Programgsdgfsdgsdfgsdfgs\nihgsfoidhjodfishlsdfgkjglikdsfjgolksjhgsdofjhgodfhgsiujhsdgf\njlkasdljksdaflkjsdf" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/file_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lineSpacingExtra="0.dp"
+                android:maxLines="1"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                tools:text="File name" />
+
+            <TextView
+                android:id="@+id/file_subject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lineSpacingExtra="0.dp"
+                android:maxLines="1"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                tools:text="File Subject" />
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/download"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_download"
+            android:src="@drawable/download_from_cloud_48"
+            app:tint="@color/green_21"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/file_name"
+            app:layout_constraintStart_toEndOf="@id/lyt_details"
             android:contentDescription="@null" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0.001dp"
-            android:layout_marginTop="3dp"
-            android:backgroundTint="@color/green_500"
-            app:layout_constraintTop_toBottomOf="@id/file_name"
-            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.001dp"
-        android:background="@color/grey_10" />
+        android:layout_height="0.0001dp"
+        android:background="@color/grey_5" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/grid_view"
+        layout="@layout/item_grid_home" />
 </LinearLayout>

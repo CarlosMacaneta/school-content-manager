@@ -62,6 +62,8 @@ class ScanFragment: DialogFragment() {
 
         outputDirectory = getOutputDirectory(requireContext())
 
+        binding.btClose.setOnClickListener { dismiss() }
+
         binding.btCapture.setOnClickListener {
             imgCapture(
                 outputDirectory,
