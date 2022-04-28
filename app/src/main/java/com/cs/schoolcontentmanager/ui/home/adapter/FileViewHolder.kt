@@ -1,7 +1,6 @@
 package com.cs.schoolcontentmanager.ui.home.adapter
 
 import android.view.View
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.cs.schoolcontentmanager.R
 import com.cs.schoolcontentmanager.databinding.ItemHomeBinding
@@ -47,17 +46,6 @@ class FileViewHolder(
                     ".png" -> binding.gridView.image.setImageResource(R.drawable.png_100)
                 }
             }
-        }
-    }
-    
-    private fun setLogo(imgView: ImageView, fileType: String) {
-        when (fileType) {
-            ".pdf" -> imgView.setImageResource(R.drawable.pdf_32)
-            ".ppt", ".pptx" -> imgView.setImageResource(R.drawable.powerpoint_32)
-            ".xls", ".xlsx" -> imgView.setImageResource(R.drawable.xls_32)
-            ".doc", ".docx" -> imgView.setImageResource(R.drawable.word_32)
-            ".jpg", ".jpeg" -> imgView.setImageResource(R.drawable.jpg_32)
-            ".png" -> imgView.setImageResource(R.drawable.png_32)
         }
     }
 }
