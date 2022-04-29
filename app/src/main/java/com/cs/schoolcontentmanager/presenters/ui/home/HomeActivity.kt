@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.cs.schoolcontentmanager.R
 import com.cs.schoolcontentmanager.databinding.ActivityHomeBinding
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.ModalBottomSheetOptions

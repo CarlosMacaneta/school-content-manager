@@ -13,6 +13,7 @@ class FileAdapter(
 ): RecyclerView.Adapter<FileViewHolder>() {
 
     private var type: String = ""
+    private var isGridList = false
 
     init {
         type = viewType
@@ -24,12 +25,17 @@ class FileAdapter(
         )
 
     override fun onBindViewHolder(holder: FileViewHolder, position: Int) {
-        holder.bind(files[position], type)
+        holder.bind(files[position], type, isGridList)
     }
 
     override fun getItemCount() = files.size
 
     fun setViewType(type: String) {
         this.type = type
+    }
+
+    fun setViewType(type: String, isGridList: Boolean = false) {
+        this.type = type
+        this.isGridList = isGridList
     }
 }

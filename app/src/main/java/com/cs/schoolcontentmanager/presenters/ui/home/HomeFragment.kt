@@ -12,18 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.cs.schoolcontentmanager.R
 import com.cs.schoolcontentmanager.databinding.FragmentHomeBinding
-<<<<<<< HEAD:app/src/main/java/com/cs/schoolcontentmanager/presenters/ui/home/HomeFragment.kt
-import com.cs.schoolcontentmanager.domain.model.File
-<<<<<<< HEAD:app/src/main/java/com/cs/schoolcontentmanager/presenters/ui/home/HomeFragment.kt
 import com.cs.schoolcontentmanager.presenters.ui.home.adapter.FileAdapter
-=======
-=======
->>>>>>> 033314a59924e1385ec0c866fae1281d588a7162:app/src/main/java/com/cs/schoolcontentmanager/ui/home/HomeFragment.kt
-import com.cs.schoolcontentmanager.ui.home.adapter.FileAdapter
-import com.cs.schoolcontentmanager.ui.home.viewmodel.HomeViewModel
+import com.cs.schoolcontentmanager.presenters.ui.home.viewmodel.HomeViewModel
 import com.cs.schoolcontentmanager.utils.Constants.GRID_VIEW
 import com.cs.schoolcontentmanager.utils.Constants.LIST_VIEW
->>>>>>> 5a8014da2a64a77760a50238017f34e85dc7a6a6:app/src/main/java/com/cs/schoolcontentmanager/ui/home/HomeFragment.kt
+import com.cs.schoolcontentmanager.utils.Util.isLandscape
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.StorageReference
@@ -34,7 +27,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -76,10 +68,7 @@ class HomeFragment : Fragment() {
 
         homeViewModel.viewState.observe(requireActivity()) {
             when(it) {
-                GRID_VIEW -> {
-                    binding.rvFile.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-                    fileAdapter.setViewType(it)
-                }
+                GRID_VIEW -> setGridViewState(it)
                 LIST_VIEW -> {
                     rvFile.layoutManager = LinearLayoutManager(requireContext())
                     fileAdapter.setViewType(it)
@@ -142,8 +131,7 @@ class HomeFragment : Fragment() {
                 gridItem.isVisible = false
                 listItem.isVisible = true
 
-                binding.rvFile.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-                fileAdapter.setViewType(GRID_VIEW)
+                setGridViewState(GRID_VIEW)
                 homeViewModel.setViewState(GRID_VIEW)
                 true
             }
@@ -161,6 +149,13 @@ class HomeFragment : Fragment() {
                 true
             }
         }
+    }
+
+    private fun setGridViewState(viewType: String) {
+        binding.rvFile.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+
+        if (isLandscape(requireContext())) fileAdapter.setViewType(viewType, true)
+        else fileAdapter.setViewType(viewType)
     }
 
     private fun navigateOut() {

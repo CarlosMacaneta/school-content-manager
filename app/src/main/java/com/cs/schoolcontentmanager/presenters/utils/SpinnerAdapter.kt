@@ -1,4 +1,4 @@
-package com.cs.schoolcontentmanager.ui.home.bottomsheet.fragment.adapter
+package com.cs.schoolcontentmanager.presenters.utils
 
 import android.content.Context
 import android.view.View

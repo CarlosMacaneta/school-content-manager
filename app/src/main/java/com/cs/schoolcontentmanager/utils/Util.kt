@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.res.Configuration.ORIENTATION_LANDSCAPE
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.Uri
@@ -78,6 +79,9 @@ object Util {
             setAutoCancel(true)
         }
     }
+
+    fun isLandscape(context: Context): Boolean =
+        context.resources.configuration.orientation == ORIENTATION_LANDSCAPE
 
     private fun createNotificationChannel(context: Context) {
 

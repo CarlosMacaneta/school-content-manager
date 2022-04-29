@@ -16,15 +16,13 @@ import com.cs.schoolcontentmanager.data.DbUtil.setCustomMetadata
 import com.cs.schoolcontentmanager.databinding.DialogFileBinding
 import com.cs.schoolcontentmanager.domain.model.Course
 import com.cs.schoolcontentmanager.domain.model.File
-<<<<<<< HEAD:app/src/main/java/com/cs/schoolcontentmanager/presenters/ui/home/bottomsheet/fragment/FileDetailsFragment.kt
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup.fileExtension
-=======
-import com.cs.schoolcontentmanager.ui.home.bottomsheet.fragment.adapter.SpinnerAdapter
-import com.cs.schoolcontentmanager.ui.home.bottomsheet.util.FileSetup.fileExtension
->>>>>>> 5a8014da2a64a77760a50238017f34e85dc7a6a6:app/src/main/java/com/cs/schoolcontentmanager/ui/home/bottomsheet/fragment/FileDetailsFragment.kt
-import com.cs.schoolcontentmanager.utils.Constants
+import com.cs.schoolcontentmanager.presenters.utils.SpinnerAdapter
 import com.cs.schoolcontentmanager.utils.Constants.FILE_NAME
 import com.cs.schoolcontentmanager.utils.Constants.FILE_URI
+import com.cs.schoolcontentmanager.utils.Constants.NOTIFICATION_ID
+import com.cs.schoolcontentmanager.utils.Constants.PROGRESS_CURRENT
+import com.cs.schoolcontentmanager.utils.Constants.PROGRESS_MAX
 import com.cs.schoolcontentmanager.utils.Constants.UPLOADS
 import com.cs.schoolcontentmanager.utils.Util.notificationBuilder
 import com.google.firebase.database.DatabaseReference
@@ -37,6 +35,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class FileDetailsFragment: DialogFragment() {
@@ -109,8 +108,8 @@ class FileDetailsFragment: DialogFragment() {
 
         val notificationManager = NotificationManagerCompat.from(requireContext())
 
-        builder.setProgress(Constants.PROGRESS_MAX, Constants.PROGRESS_CURRENT, false)
-        notificationManager.notify(Constants.NOTIFICATION_ID, builder.build())
+        builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false)
+        notificationManager.notify(NOTIFICATION_ID, builder.build())
 
         val metadata = setCustomMetadata()
 
@@ -133,14 +132,14 @@ class FileDetailsFragment: DialogFragment() {
             builder.setProgress(0, 0, false)
             builder.setContentText("Upload complete")
             builder.priority = PRIORITY_DEFAULT
-            notificationManager.notify(Constants.NOTIFICATION_ID, builder.build())
+            notificationManager.notify(NOTIFICATION_ID, builder.build())
         }.addOnProgressListener {
             val progress = (100.0 * it.bytesTransferred) / it.totalByteCount
 
             builder.priority = PRIORITY_LOW
-            builder.setProgress(Constants.PROGRESS_MAX, progress.toInt(), false)
+            builder.setProgress(PROGRESS_MAX, progress.toInt(), false)
             builder.setContentText("${progress.toInt()}%")
-            notificationManager.notify(Constants.NOTIFICATION_ID, builder.build())
+            notificationManager.notify(NOTIFICATION_ID, builder.build())
         }
     }
 }
