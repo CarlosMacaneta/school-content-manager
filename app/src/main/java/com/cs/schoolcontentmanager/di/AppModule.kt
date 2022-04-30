@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.ktx.storage
 import dagger.Module
 import dagger.Provides
@@ -28,4 +29,7 @@ object AppModule {
 
     @Provides
     @Singleton fun providesCoursesDocument() = Firebase.firestore.collection(COURSES)
+
+    @Provides
+    @Singleton fun providesFirebaseMessaging() = FirebaseMessaging.getInstance()
 }

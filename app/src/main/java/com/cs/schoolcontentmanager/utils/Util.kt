@@ -12,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
@@ -63,7 +64,7 @@ object Util {
     }
 
     fun notificationBuilder(context: Context, isUploading: Boolean): NotificationCompat.Builder {
-        createNotificationChannel(context)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) createNotificationChannel(context)
         return NotificationCompat.Builder(context, CHANNEL_ID).apply {
 
             if (isUploading) {
@@ -83,19 +84,16 @@ object Util {
     fun isLandscape(context: Context): Boolean =
         context.resources.configuration.orientation == ORIENTATION_LANDSCAPE
 
-    private fun createNotificationChannel(context: Context) {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val descriptionText = context.getString(R.string.channel_description)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance).apply {
-                description = descriptionText
-            }
-
-            val notificationManager: NotificationManager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun createNotificationChannel(context: Context, importance: Int = NotificationManager.IMPORTANCE_DEFAULT) {
+        val descriptionText = context.getString(R.string.channel_description)
+        val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance).apply {
+            description = descriptionText
         }
+
+        val notificationManager: NotificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 
     @Suppress("DEPRECATION")

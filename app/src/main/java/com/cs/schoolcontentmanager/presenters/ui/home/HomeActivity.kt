@@ -12,6 +12,7 @@ import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.ModalBottomShe
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.CameraSetup
 import com.cs.schoolcontentmanager.utils.Constants.BS_OPTIONS
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -23,6 +24,7 @@ class HomeActivity : AppCompatActivity() {
 
     @Inject lateinit var options: ModalBottomSheetOptions
     @Inject lateinit var dbRef: DatabaseReference
+    @Inject lateinit var fbMessaging: FirebaseMessaging
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +43,8 @@ class HomeActivity : AppCompatActivity() {
         CameraSetup.cameraPermission(this)
 
         dbRef.keepSynced(true)
+
+        fbMessaging.subscribeToTopic("new_user_forum")
 
         binding.fabMore.setOnClickListener {
             options.show(supportFragmentManager, BS_OPTIONS)

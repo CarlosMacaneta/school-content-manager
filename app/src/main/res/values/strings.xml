@@ -52,7 +52,7 @@
     <string name="capture">Capture</string>
     <string name="description">Description</string>
     <string name="file_details">File details</string>
-    <string name="channel_description">It\'s launches when an upload or download start</string>
+    <string name="channel_description">My notification</string>
     <string name="authenticating">Authenticating</string>
     <string name="subject">Subject</string>
     <string name="course">Course</string>
