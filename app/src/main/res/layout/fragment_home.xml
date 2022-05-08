@@ -21,17 +21,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_file"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_file"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_home"
-                tools:itemCount="11" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_home"
+            tools:itemCount="11" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>

@@ -15,6 +15,8 @@ class FileAdapter(
     private var type: String = ""
     private var isGridList = false
 
+    private lateinit var callbackResult: ICallbackResult
+
     init {
         type = viewType
     }
@@ -25,7 +27,7 @@ class FileAdapter(
         )
 
     override fun onBindViewHolder(holder: FileViewHolder, position: Int) {
-        holder.bind(files[position], type, isGridList)
+        holder.bind(files[position], type, isGridList, callbackResult)
     }
 
     override fun getItemCount() = files.size
@@ -37,5 +39,9 @@ class FileAdapter(
     fun setViewType(type: String, isGridList: Boolean = false) {
         this.type = type
         this.isGridList = isGridList
+    }
+
+    fun setCallbackResult(callbackResult: ICallbackResult) {
+        this.callbackResult = callbackResult
     }
 }

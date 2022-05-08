@@ -2,7 +2,6 @@ package com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.fragment
 
 import android.Manifest
 import android.app.Dialog
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,6 +20,7 @@ import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.CameraSet
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.CameraSetup.cameraPermission
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.CameraSetup.imgCapture
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.DetectText.detectText
+import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup.getOutputDirectory
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.ImageAnalyzer
 import com.cs.schoolcontentmanager.utils.Constants.FOLDER
 import com.google.common.util.concurrent.ListenableFuture
@@ -60,7 +60,7 @@ class ScanFragment: DialogFragment() {
 
         setupCamera()
 
-        outputDirectory = getOutputDirectory(requireContext())
+        outputDirectory = getOutputDirectory(requireContext(), FOLDER)
 
         binding.btClose.setOnClickListener { dismiss() }
 
@@ -107,14 +107,5 @@ class ScanFragment: DialogFragment() {
                 }
             }, executor())
         } else cameraPermission(requireContext())
-    }
-
-    @Suppress("DEPRECATION")
-    private fun getOutputDirectory(context: Context): File {
-        val appContext = context.applicationContext
-        val mediaDir = context.externalMediaDirs.firstOrNull()?.let {
-            File(it, FOLDER).apply { mkdirs() } }
-        return if (mediaDir != null && mediaDir.exists())
-            mediaDir else appContext.filesDir
     }
 }

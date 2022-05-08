@@ -4,19 +4,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_repeatMode="restart"
-        app:lottie_renderMode="automatic"
-        app:lottie_repeatCount="3"
-        app:lottie_rawRes="@raw/up_down" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

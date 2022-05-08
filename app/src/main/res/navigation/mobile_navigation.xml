@@ -19,7 +19,6 @@
 
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="com.cs.schoolcontentmanager.presenters.ui.home.upload.UploadFilesFragment"
-        android:label="@string/title_upload_file"
-        tools:layout="@layout/fragment_upload_file" />
+        android:name="com.cs.schoolcontentmanager.presenters.ui.settings.SettingsFragment"
+        android:label="@string/settings" />
 </navigation>

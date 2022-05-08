@@ -11,7 +11,6 @@ import android.hardware.Camera
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import android.webkit.MimeTypeMap
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -26,6 +25,7 @@ import com.cs.schoolcontentmanager.utils.Constants.FILENAME
 import com.cs.schoolcontentmanager.utils.Constants.FILE_NAME_KEY
 import com.cs.schoolcontentmanager.utils.Constants.PHOTO_EXTENSION
 import com.yalantis.ucrop.UCrop
+import timber.log.Timber
 import java.io.File
 import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
@@ -99,13 +99,13 @@ object CameraSetup {
                         arrayOf(mimeType)
                     ) { _, uri ->
                         //val bitmap = BitmapFactory.
-                        Log.d("TAG", "Image capture scanned into media store: $uri")
+                        Timber.d("Image capture scanned into media store: $uri")
                     }
                     setOnSuccessListener(savedUri)
                 }
 
                 override fun onError(exc: ImageCaptureException) {
-                    Log.e("TAG", "Photo capture failed: ${exc.message}", exc)
+                    Timber.e(exc, "Photo capture failed: " + exc.message)
                 }
             })
     }

@@ -1,7 +1,8 @@
 package com.cs.schoolcontentmanager.presenters.ui.home
 
+import android.app.DownloadManager
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -12,29 +13,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.cs.schoolcontentmanager.R
 import com.cs.schoolcontentmanager.databinding.FragmentHomeBinding
+import com.cs.schoolcontentmanager.domain.model.File
 import com.cs.schoolcontentmanager.presenters.ui.home.adapter.FileAdapter
+import com.cs.schoolcontentmanager.presenters.ui.home.adapter.ICallbackResult
+import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup
 import com.cs.schoolcontentmanager.presenters.ui.home.viewmodel.HomeViewModel
+import com.cs.schoolcontentmanager.utils.Constants.FOLDER_FILES
 import com.cs.schoolcontentmanager.utils.Constants.GRID_VIEW
 import com.cs.schoolcontentmanager.utils.Constants.LIST_VIEW
 import com.cs.schoolcontentmanager.utils.Util.isLandscape
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.storage.StorageReference
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-
-    @Inject lateinit var storageRef: StorageReference
-    @Inject lateinit var dbRef: DatabaseReference
 
     private var fileAdapter = FileAdapter(mutableListOf())
 
@@ -52,7 +46,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initRecyclerView()
         navigateOut()
     }
@@ -62,8 +55,13 @@ class HomeFragment : Fragment() {
         rvFile.setHasFixedSize(true)
 
         homeViewModel.files.observe(requireActivity()) {
-            fileAdapter = FileAdapter(it)
+            fileAdapter = FileAdapter(it.reversed())
             binding.rvFile.adapter = fileAdapter
+            fileAdapter.setCallbackResult(object : ICallbackResult {
+                override fun getResultCallback(itemView: View, position: Int, file: File) {
+                    downloadFile(file)
+                }
+            })
         }
 
         homeViewModel.viewState.observe(requireActivity()) {
@@ -78,22 +76,6 @@ class HomeFragment : Fragment() {
 
         homeViewModel.texGetFilesError.observe(requireActivity()) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
-        }
-    }
-
-    private fun downLoadFiles() {
-
-    }
-
-    private fun downloadFile(fileUrl: String) = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            val sRef = storageRef.child(fileUrl).downloadUrl.await()
-
-
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                Toast.makeText(requireContext(), "This download couldn't be finished.", Toast.LENGTH_LONG).show()
-            }
         }
     }
 
@@ -121,7 +103,7 @@ class HomeFragment : Fragment() {
                     }
 
                     override fun onQueryTextChange(p0: String?): Boolean {
-                        Log.e("jk", "onQueryTextChange: $p0", )
+
                         return true
                     }
                 })
@@ -156,6 +138,16 @@ class HomeFragment : Fragment() {
 
         if (isLandscape(requireContext())) fileAdapter.setViewType(viewType, true)
         else fileAdapter.setViewType(viewType)
+    }
+
+    private fun downloadFile(file: File) {
+        val dir = FileSetup.getOutputDirectory(requireContext(), FOLDER_FILES)
+        val genFile = java.io.File(dir, "${file.name}${file.type}")
+
+        homeViewModel.downloadFile(genFile, file) {
+            val downloadManager = requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            downloadManager.enqueue(it)
+        }
     }
 
     private fun navigateOut() {

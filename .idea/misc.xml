@@ -12,6 +12,8 @@
         <entry key="..\:/Documents/GitHub/school-content-manager/app/src/main/res/layout/spinner_item.xml" value="0.1" />
         <entry key="..\:/Documents/GitHub/school-content-manager/app/src/main/res/menu/top_app_bar.xml" value="0.18055555555555555" />
         <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/drawable/bg_rounded_corners.xml" value="0.2075" />
+        <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/drawable/bg_rounded_rect.xml" value="0.2075" />
+        <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/drawable/bottomnavigation_bar.xml" value="0.2075" />
         <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/drawable/btn_rounded_primary.xml" value="0.2" />
         <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/drawable/circle.xml" value="0.2075" />
         <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/drawable/circle_white.xml" value="0.2075" />
@@ -40,6 +42,7 @@
         <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/layout/preview_scan.xml" value="0.2" />
         <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2" />
         <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/menu/top_app_bar.xml" value="0.2" />
+        <entry key="..\:/Users/Carlos Macaneta/Documents/SDprojects/SchoolContentManager/app/src/main/res/xml/root_preferences.xml" value="0.16802536231884058" />
       </map>
     </option>
   </component>

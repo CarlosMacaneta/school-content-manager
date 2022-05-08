@@ -12,7 +12,11 @@ class FileViewHolder(
     private val binding: ItemHomeBinding
 ): RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(file: File, viewType: String, isGridList: Boolean) {
+    fun bind(file: File, viewType: String, isGridList: Boolean, callbackResult: ICallbackResult) {
+        binding.download.setOnClickListener {
+            callbackResult.getResultCallback(itemView, absoluteAdapterPosition, file)
+        }
+
         when (viewType) {
             LIST_VIEW -> listView(file)
             GRID_VIEW -> {

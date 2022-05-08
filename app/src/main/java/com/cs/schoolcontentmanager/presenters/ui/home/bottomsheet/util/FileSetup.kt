@@ -7,9 +7,10 @@ import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.provider.OpenableColumns
-import android.util.Log
 import android.webkit.MimeTypeMap
 import com.cs.schoolcontentmanager.utils.Constants.CONTENT
+import timber.log.Timber
+import java.io.File
 
 
 object FileSetup {
@@ -44,7 +45,7 @@ object FileSetup {
                         res = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
                     }
                 } catch (exc: Exception) {
-                    Log.e("fileName", exc.localizedMessage as String)
+                    Timber.e(exc.localizedMessage)
                 } finally {
                     cursor?.close()
                 }
@@ -84,5 +85,14 @@ object FileSetup {
             }
         }
         return fileSize
+    }
+
+    @Suppress("DEPRECATION")
+    fun getOutputDirectory(context: Context, folderName: String): File {
+        val appContext = context.applicationContext
+        val mediaDir = context.externalMediaDirs.firstOrNull()?.let {
+            File(it, folderName).apply { mkdirs() } }
+        return if (mediaDir != null && mediaDir.exists())
+            mediaDir else appContext.filesDir
     }
 }

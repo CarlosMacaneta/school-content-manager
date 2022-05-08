@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_rounded_rect"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -52,9 +53,7 @@
         android:hint="@string/file_name"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="20">
+        android:layout_marginEnd="20dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

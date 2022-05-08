@@ -17,4 +17,17 @@
         <item name="colorControlHighlight">@color/grey_60</item>
         <item name="colorControlNormal">@color/grey_40</item>
     </style>
+
+    <style name="Theme.App" parent="Theme.Material3.Light">
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+    </style>
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+        <item name="colorSurface">@color/bottomnav_color</item>
+        <item name="colorOnSurfaceVariant">@color/white</item>
+    </style>
 </resources>

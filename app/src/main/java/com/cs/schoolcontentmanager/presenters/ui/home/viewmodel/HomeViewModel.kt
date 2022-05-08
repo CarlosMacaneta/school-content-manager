@@ -1,21 +1,24 @@
 package com.cs.schoolcontentmanager.presenters.ui.home.viewmodel
 
+import android.app.DownloadManager
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.cs.schoolcontentmanager.domain.model.Course
 import com.cs.schoolcontentmanager.domain.model.File
+import com.cs.schoolcontentmanager.domain.usecase.FileUseCases
 import com.cs.schoolcontentmanager.utils.Constants.LIST_VIEW
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.UploadTask
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel
 @Inject constructor(
-    private val dbRef: DatabaseReference
+    private val fileUseCases: FileUseCases
 ): ViewModel() {
 
     private val _viewState = MutableLiveData<String>().apply {
@@ -29,29 +32,47 @@ class HomeViewModel
     private val _files = MutableLiveData<List<File>>()
     val files: LiveData<List<File>> = _files
 
+    private val _courses = MutableLiveData<List<Course>>()
+    val courses: LiveData<List<Course>> = _courses
+
     init {
         getFiles()
+        getCourses()
     }
 
     fun setViewState(viewState: String) {
         _viewState.value = viewState
     }
 
+    suspend fun uploadFile(uri: Uri): UploadTask.TaskSnapshot? {
+         return fileUseCases.uploadFile(uri)
+    }
+
+    private fun getCourses() {
+        viewModelScope.launch {
+            _courses.value = fileUseCases.getCourses()
+        }
+    }
+
+    fun downloadFile(
+        genFile: java.io.File,
+        file: File,
+        downloadManager: (downloadManagerRequest: DownloadManager.Request) -> Unit
+    ) {
+        viewModelScope.launch {
+            val request = fileUseCases.downloadFile(file)
+            request.setDestinationUri(Uri.fromFile(genFile))
+            downloadManager(request)
+        }
+    }
+
     private fun getFiles() {
-        dbRef.orderByValue().addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val temp = mutableListOf<File>()
-
-                snapshot.children.forEach {
-                    it.getValue(File::class.java)?.let { file -> temp.add(file) }
-                }
-                _files.value = temp
+        viewModelScope.launch {
+            try {
+                _files.postValue(fileUseCases.getFiles())
+            } catch (e: Exception) {
+                _texGetFilesError.value = e.message
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                _texGetFilesError.value = "Error fetching data from the server, " +
-                        "make sure that you are connected to internet..."
-            }
-        })
+        }
     }
 }

@@ -9,13 +9,8 @@
 
     <item
         android:id="@+id/navigation_downloaded_files"
-        android:icon="@drawable/ic_download"
-        android:title="@string/title_downloads" />
-
-    <item
-        android:id="@+id/navigation_notification"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notification" />
+        android:icon="@drawable/ic_offline_pin"
+        android:title="@string/title_offline" />
 
     <item
         android:id="@+id/navigation_settings"

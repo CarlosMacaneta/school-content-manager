@@ -30,7 +30,6 @@
         <activity
             android:name="com.cs.schoolcontentmanager.presenters.ui.login.LoginActivity"
             android:exported="false"
-            android:label="@string/title_activity_login"
             android:theme="@style/Theme.SchoolContentManager.NoActionBar" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"

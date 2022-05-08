@@ -12,6 +12,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="bottomnav_color">#2B353B</color>
+
     <color name="overlay_dark_10">#1A000000</color>
     <color name="overlay_dark_20">#33000000</color>
     <color name="overlay_dark_30">#4D000000</color>
