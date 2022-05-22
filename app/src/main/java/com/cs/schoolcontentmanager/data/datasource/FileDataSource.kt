@@ -17,9 +17,9 @@ class FileDataSource
     private val dbRef: DatabaseReference,
     private val coursesDoc: CollectionReference
 ){
-    suspend fun uploadFile(uri: Uri): UploadTask.TaskSnapshot? {
+    fun uploadFile(uri: Uri): UploadTask {
         val ref = storageRef.child("${Constants.UPLOADS}/${System.currentTimeMillis()}")
-        return ref.putFile(uri).await()
+        return ref.putFile(uri)
     }
 
     fun getFiles(): Query = dbRef.orderByValue()

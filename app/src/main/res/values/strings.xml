@@ -78,4 +78,10 @@
     <string name="theme">Theme</string>
     <string name="dark_theme">Dark</string>
     <string name="title_offline">Offline</string>
+    <string name="level">Level</string>
+    <string name="i">I</string>
+    <string name="ii">II</string>
+    <string name="iii">III</string>
+    <string name="iv">IV</string>
+    <string name="semester">Semester</string>
 </resources>

@@ -3,6 +3,7 @@ package com.cs.schoolcontentmanager.utils
 object Constants {
 
     const val BS_OPTIONS = "BS_OPTIONS"
+    const val BS_FILTER = "filter"
 
     const val FOLDER = "SCMScan"
     const val FOLDER_FILES = "SCMFiles"
@@ -34,4 +35,21 @@ object Constants {
 
     const val LIST_VIEW = "list_view"
     const val GRID_VIEW = "grid_view"
+
+    const val DOWNLOADED_FILES_VIEW = "downloaded_view"
+    const val CLOUD_FILES_VIEW = "cloud_view"
+
+    //file extension
+    const val PDF = ".pdf"
+    const val PNG = ".png"
+    const val JPEG = ".jpeg"
+    const val DOC = ".doc"
+    const val DOCX = ".docx"
+    const val XLS = ".xls"
+    const val XLSX = ".xlsx"
+    const val PPT = ".ppt"
+    const val PPTX = ".pptx"
+
+    //
+    const val NAME_PROP = "name"
 }

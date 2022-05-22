@@ -9,13 +9,13 @@
         android:id="@+id/navigation_home"
         android:name="com.cs.schoolcontentmanager.presenters.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_file_manager" />
 
     <fragment
         android:id="@+id/navigation_downloaded_files"
         android:name="com.cs.schoolcontentmanager.presenters.ui.home.download.DownloadedFilesFragment"
         android:label="@string/title_downloads"
-        tools:layout="@layout/fragment_downloaded_files" />
+        tools:layout="@layout/fragment_file_manager" />
 
     <fragment
         android:id="@+id/navigation_settings"

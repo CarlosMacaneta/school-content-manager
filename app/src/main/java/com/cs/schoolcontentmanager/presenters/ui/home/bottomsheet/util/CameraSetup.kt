@@ -3,21 +3,15 @@ package com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util
 import android.Manifest
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.hardware.Camera
-import android.media.MediaScannerConnection
 import android.net.Uri
-import android.os.Build
-import android.webkit.MimeTypeMap
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.cs.schoolcontentmanager.R
@@ -70,8 +64,7 @@ object CameraSetup {
         outputDirectory: File,
         imageCapture: ImageCapture,
         executorService: Executor,
-        context: Context,
-        setOnSuccessListener: (uri: Uri) -> Unit
+        setOnSuccessListener: (bitmap: Bitmap) -> Unit
     ) {
         val photoFile = createFile(outputDirectory)
 
@@ -79,29 +72,11 @@ object CameraSetup {
             .build()
 
         imageCapture.takePicture(
-            outputOptions,
             executorService,
-            object : ImageCapture.OnImageSavedCallback {
-                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    val savedUri = outputFileResults.savedUri ?: Uri.fromFile(photoFile)
-
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                        context.sendBroadcast(
-                            Intent(Camera.ACTION_NEW_PICTURE, savedUri)
-                        )
-                    }
-
-                    val mimeType = MimeTypeMap.getSingleton()
-                        .getMimeTypeFromExtension(savedUri.toFile().extension)
-                    MediaScannerConnection.scanFile(
-                        context,
-                        arrayOf(savedUri.toFile().absolutePath),
-                        arrayOf(mimeType)
-                    ) { _, uri ->
-                        //val bitmap = BitmapFactory.
-                        Timber.d("Image capture scanned into media store: $uri")
-                    }
-                    setOnSuccessListener(savedUri)
+            object : ImageCapture.OnImageCapturedCallback() {
+                override fun onCaptureSuccess(image: ImageProxy) {
+                    super.onCaptureSuccess(image)
+                    setOnSuccessListener(imageProxyToBitmap(image))
                 }
 
                 override fun onError(exc: ImageCaptureException) {

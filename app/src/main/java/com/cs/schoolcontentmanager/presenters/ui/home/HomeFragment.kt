@@ -2,6 +2,7 @@ package com.cs.schoolcontentmanager.presenters.ui.home
 
 import android.app.DownloadManager
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -12,34 +13,38 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.cs.schoolcontentmanager.R
-import com.cs.schoolcontentmanager.databinding.FragmentHomeBinding
+import com.cs.schoolcontentmanager.databinding.FragmentFileManagerBinding
 import com.cs.schoolcontentmanager.domain.model.File
 import com.cs.schoolcontentmanager.presenters.ui.home.adapter.FileAdapter
 import com.cs.schoolcontentmanager.presenters.ui.home.adapter.ICallbackResult
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup
+import com.cs.schoolcontentmanager.presenters.ui.home.filter.FilterBottomSheetFragment
 import com.cs.schoolcontentmanager.presenters.ui.home.viewmodel.HomeViewModel
+import com.cs.schoolcontentmanager.utils.Constants.BS_FILTER
 import com.cs.schoolcontentmanager.utils.Constants.FOLDER_FILES
 import com.cs.schoolcontentmanager.utils.Constants.GRID_VIEW
 import com.cs.schoolcontentmanager.utils.Constants.LIST_VIEW
 import com.cs.schoolcontentmanager.utils.Util.isLandscape
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var binding: FragmentFileManagerBinding
 
-    private var fileAdapter = FileAdapter(mutableListOf())
-
+    private var fileAdapter = FileAdapter()
     private val homeViewModel: HomeViewModel by activityViewModels()
+
+    @Inject lateinit var filter: FilterBottomSheetFragment
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentFileManagerBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -55,7 +60,7 @@ class HomeFragment : Fragment() {
         rvFile.setHasFixedSize(true)
 
         homeViewModel.files.observe(requireActivity()) {
-            fileAdapter = FileAdapter(it.reversed())
+            fileAdapter.submitData(it)
             binding.rvFile.adapter = fileAdapter
             fileAdapter.setCallbackResult(object : ICallbackResult {
                 override fun getResultCallback(itemView: View, position: Int, file: File) {
@@ -95,6 +100,7 @@ class HomeFragment : Fragment() {
                 val searchView = item.actionView as SearchView
 
                 searchView.queryHint = getString(R.string.file_name)
+                searchView.isIconified = true
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(p0: String?): Boolean {
@@ -103,7 +109,17 @@ class HomeFragment : Fragment() {
                     }
 
                     override fun onQueryTextChange(p0: String?): Boolean {
-
+                        p0?.let {
+                            if (it.isNotBlank() && it.isNotEmpty()) {
+                                homeViewModel.searchFilesOnCloud(it) { files ->
+                                    fileAdapter.submitData(files)
+                                }
+                            } else {
+                                homeViewModel.files.observe(viewLifecycleOwner) { files ->
+                                    fileAdapter.submitData(files)
+                                }
+                            }
+                        }
                         return true
                     }
                 })
@@ -127,7 +143,7 @@ class HomeFragment : Fragment() {
                 true
             }
             else -> {
-                Toast.makeText(requireContext(), "Filter", Toast.LENGTH_SHORT).show()
+                filter.show(requireActivity().supportFragmentManager, BS_FILTER)
                 true
             }
         }
@@ -147,6 +163,10 @@ class HomeFragment : Fragment() {
         homeViewModel.downloadFile(genFile, file) {
             val downloadManager = requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
             downloadManager.enqueue(it)
+            homeViewModel.createFile(File(
+                file.name, file.type, file.subject, Uri.fromFile(genFile).toString(),
+                file.publishedBy
+            ))
         }
     }
 

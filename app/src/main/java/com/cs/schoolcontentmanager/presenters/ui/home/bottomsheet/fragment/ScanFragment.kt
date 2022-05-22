@@ -19,8 +19,8 @@ import com.cs.schoolcontentmanager.databinding.PreviewScanBinding
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.CameraSetup
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.CameraSetup.cameraPermission
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.CameraSetup.imgCapture
-import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.DetectText.detectText
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup.getOutputDirectory
+import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.GeneratePDF.convertImgToPdf
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.ImageAnalyzer
 import com.cs.schoolcontentmanager.utils.Constants.FOLDER
 import com.google.common.util.concurrent.ListenableFuture
@@ -68,11 +68,11 @@ class ScanFragment: DialogFragment() {
             imgCapture(
                 outputDirectory,
                 imageCapture,
-                executor(),
-                requireContext())
+                executor())
             {
                 try {
-                    detectText(requireContext(), it)
+                    convertImgToPdf(requireContext(), it)
+                    //detectText(requireContext(), it)
                     //crop(requireContext(), it, this)
                     dismiss()
                 } catch (exc: Exception) {}

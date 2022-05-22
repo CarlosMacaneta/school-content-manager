@@ -10,8 +10,11 @@ import com.cs.schoolcontentmanager.domain.model.Course
 import com.cs.schoolcontentmanager.domain.model.File
 import com.cs.schoolcontentmanager.domain.usecase.FileUseCases
 import com.cs.schoolcontentmanager.utils.Constants.LIST_VIEW
-import com.google.firebase.storage.UploadTask
+import com.google.android.gms.tasks.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,11 +35,17 @@ class HomeViewModel
     private val _files = MutableLiveData<List<File>>()
     val files: LiveData<List<File>> = _files
 
+    private val _localFiles = MutableLiveData<List<File>>()
+    val localFiles: LiveData<List<File>> = _localFiles
+
     private val _courses = MutableLiveData<List<Course>>()
     val courses: LiveData<List<Course>> = _courses
 
+    private var getFilesJob: Job? = null
+
     init {
         getFiles()
+        getLocalFiles()
         getCourses()
     }
 
@@ -44,8 +53,24 @@ class HomeViewModel
         _viewState.value = viewState
     }
 
-    suspend fun uploadFile(uri: Uri): UploadTask.TaskSnapshot? {
-         return fileUseCases.uploadFile(uri)
+    fun createFile(file: File) {
+        viewModelScope.launch {
+            fileUseCases.createFile(file)
+        }
+    }
+
+    fun deleteFile(file: File) {
+        viewModelScope.launch {
+            fileUseCases.deleteFile(file)
+        }
+    }
+
+    fun uploadFile(
+        uri: Uri,
+        onSuccessListener: (taskUri: Task<Uri>) -> Unit,
+        onProgressListener: (progress: Double) -> Unit
+    ) {
+         fileUseCases.uploadFile(uri, onSuccessListener, onProgressListener)
     }
 
     private fun getCourses() {
@@ -67,12 +92,41 @@ class HomeViewModel
     }
 
     private fun getFiles() {
-        viewModelScope.launch {
-            try {
-                _files.postValue(fileUseCases.getFiles())
-            } catch (e: Exception) {
-                _texGetFilesError.value = e.message
+        try {
+            fileUseCases.getFiles {
+                _files.value = it
             }
+        } catch (e: Exception) {
+            _texGetFilesError.value = e.message
         }
+    }
+
+    fun searchFilesOnCloud(
+        value: String,
+        result: (files: MutableList<File>) -> Unit
+    ) {
+        fileUseCases.searchFiles(value, result)
+    }
+
+    fun searchLocalFileByName(
+        name: String,
+        result: (files: List<File>) -> Unit
+    ) {
+        getFilesJob?.cancel()
+        getFilesJob = fileUseCases
+            .searchLocalFileByName(String.format("%s%s%s", "%", name, "%"))
+            .onEach {
+                result(it)
+            }
+            .launchIn(viewModelScope)
+    }
+
+    private fun getLocalFiles() {
+        getFilesJob?.cancel()
+        getFilesJob = fileUseCases.getLocalFiles()
+            .onEach {
+                _localFiles.value = it
+            }
+            .launchIn(viewModelScope)
     }
 }

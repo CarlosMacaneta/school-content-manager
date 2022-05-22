@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cs.schoolcontentmanager.R
 import com.cs.schoolcontentmanager.databinding.ItemHomeBinding
 import com.cs.schoolcontentmanager.domain.model.File
+import com.cs.schoolcontentmanager.utils.Constants.DOWNLOADED_FILES_VIEW
 import com.cs.schoolcontentmanager.utils.Constants.GRID_VIEW
 import com.cs.schoolcontentmanager.utils.Constants.LIST_VIEW
 
@@ -12,10 +13,28 @@ class FileViewHolder(
     private val binding: ItemHomeBinding
 ): RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(file: File, viewType: String, isGridList: Boolean, callbackResult: ICallbackResult) {
-        binding.download.setOnClickListener {
-            callbackResult.getResultCallback(itemView, absoluteAdapterPosition, file)
+    fun bind(
+        file: File,
+        viewType: String,
+        isGridList: Boolean,
+        callbackResult: ICallbackResult?,
+        displayView: String
+    ) {
+        if (callbackResult == null) {
+            binding.download.visibility = View.GONE
+        } else {
+            binding.download.visibility = View.VISIBLE
+            binding.download.setOnClickListener {
+                callbackResult.getResultCallback(itemView, absoluteAdapterPosition, file)
+            }
         }
+
+        if (displayView == DOWNLOADED_FILES_VIEW) {
+            binding.download.visibility = View.GONE
+            itemView.setOnClickListener {
+                callbackResult?.getResultCallback(itemView, absoluteAdapterPosition, file)
+            }
+        } else binding.download.visibility = View.VISIBLE
 
         when (viewType) {
             LIST_VIEW -> listView(file)

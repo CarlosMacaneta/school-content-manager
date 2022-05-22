@@ -36,8 +36,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
+            android:name="com.pspdfkit.ui.PdfActivity"
+            android:theme="@style/Theme.SchoolContentManager.NoActionBar"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
             android:name="com.cs.schoolcontentmanager.presenters.ui.home.HomeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SchoolContentManager.NoActionBar"/>
         <activity
             android:name="com.cs.schoolcontentmanager.presenters.ui.signup.SignUpActivity"
             android:exported="false"
