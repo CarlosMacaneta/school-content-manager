@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/navigation_downloaded_files"
         android:name="com.cs.schoolcontentmanager.presenters.ui.home.download.DownloadedFilesFragment"
-        android:label="@string/title_downloads"
+        android:label="@string/title_offline"
         tools:layout="@layout/fragment_file_manager" />
 
     <fragment

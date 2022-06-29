@@ -51,7 +51,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_rounded_corners"
             app:itemRippleColor="@color/yellow_600"
-            app:backgroundTint="@color/bottomnav_color"
             app:itemIconTint="@color/white"
             app:itemTextColor="@color/white"
             app:itemHorizontalTranslationEnabled="true"

@@ -19,10 +19,14 @@ import com.cs.schoolcontentmanager.databinding.PreviewScanBinding
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.CameraSetup
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.CameraSetup.cameraPermission
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.CameraSetup.imgCapture
+import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup
+import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup.fileName
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup.getOutputDirectory
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.GeneratePDF.convertImgToPdf
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.ImageAnalyzer
 import com.cs.schoolcontentmanager.utils.Constants.FOLDER
+import com.cs.schoolcontentmanager.utils.Util
+import com.cs.schoolcontentmanager.utils.Util.launchFragment
 import com.google.common.util.concurrent.ListenableFuture
 import java.io.File
 import java.util.concurrent.Executor
@@ -71,9 +75,13 @@ class ScanFragment: DialogFragment() {
                 executor())
             {
                 try {
-                    convertImgToPdf(requireContext(), it)
-                    //detectText(requireContext(), it)
-                    //crop(requireContext(), it, this)
+                    convertImgToPdf(requireContext(), it)?.let { uri ->
+                        launchFragment(
+                            requireContext(), FileDetailsFragment(), uri,
+                            fileName(uri, requireContext())
+                        ).also { dismiss() }
+                        Toast.makeText(requireContext(), uri.path.toString(), Toast.LENGTH_LONG).show()
+                    }
                     dismiss()
                 } catch (exc: Exception) {}
             }

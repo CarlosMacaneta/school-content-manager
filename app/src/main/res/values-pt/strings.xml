@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="prompt_password">Palavra-passe</string>
+    <string name="action_sign_in">Entrar ou Registar</string>
+    <string name="action_sign_in_short">Entrar</string>
+    <string name="action_register_short">Registar</string>
+    <string name="welcome">"Bem-vindo !"</string>
+    <string name="invalid_username">Email inválido</string>
+    <string name="invalid_password">A palavra-passe deve ter mais de 5 caracteres</string>
+    <string name="login_failed">"Login inválido, verifique suas credencias"</string>
+    <string name="new_user">Novo usuário?</string>
+    <string name="full_name">Nome completo</string>
+    <string name="username">Nome de usuário</string>
+    <string name="prompt_password_re_type">Re-type Password</string>
+    <string name="gender">Sexo</string>
+    <string name="appbar_label_student_form">Formulário do estudante</string>
+    <string name="save">Guardar</string>
+    <string name="title_home">Início</string>
+    <string name="title_upload_file">Carregar ficheiros</string>
+    <string name="title_downloads">Baixados</string>
+    <string name="title_notification">Notificação</string>
+    <string name="upload">Carregar</string>
+    <string name="file_name">Nome do ficheiro</string>
+    <string name="create_new">Criar novo</string>
+    <string name="settings">Definições</string>
+    <string name="exit">Sair?</string>
+    <string name="want_exit">Tem certeza que pretende sair?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="phone_number">Número de telefone</string>
+    <string name="profile_info">Detalhes do perfil</string>
+    <string name="account_info">Detalhes da conta</string>
+    <string name="search">Pesquisar</string>
+    <string name="filter">Filtro</string>
+    <string name="title_notifications">Notificação</string>
+    <string name="capture">Capture</string>
+    <string name="description">Descrição</string>
+    <string name="file_details">Detalhes do ficheiro</string>
+    <string name="channel_description">Minha notificação</string>
+    <string name="authenticating">Autenticando</string>
+    <string name="subject">Disciplina</string>
+    <string name="course">Curso</string>
+    <string name="download">Baixar</string>
+    <string name="grid">Grelha</string>
+    <string name="list_view">Lista</string>
+    <string name="close_camera">Fechar a câmera</string>
+
+    <string name="select_lang">Selecione o idioma</string>
+    <string name="theme">Tema</string>
+    <string name="semester">Semestre</string>
+    <string name="unable_to_open_image">Não é possível abrir ficheiro</string>
+    <string name="language">Idioma</string>
+
+    <string name="level">Nível</string>
+    <string name="dark_theme">Tema escuro</string>
+    <string name="report_or_suggest_new_resources">Relate problemas técnicos ou sugira novos recursos</string>
+    <string name="help">Ajuda</string>
+    <string name="share">Partilhar</string>
+</resources>

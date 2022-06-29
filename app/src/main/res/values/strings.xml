@@ -1,7 +1,6 @@
 <resources>
-    <string name="app_name">SCM</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
+    <string name="app_name" translatable="false">SCM</string>
+    <string name="prompt_email" translatable="false">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -11,23 +10,12 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="new_user">New user?</string>
-    <string name="individual_plan">Individual plan</string>
-    <string name="aggregate_plan">Aggregate plan</string>
-    <string name="plan">Plan</string>
-    <string name="your_name">Your name</string>
-    <string name="card_num">5502 0102 5634</string>
-    <string name="card_expire">MM/YY</string>
-    <string name="expire">Expire</string>
-    <string name="amount">Amount</string>
-    <string name="remark">Remark</string>
-    <string name="payment">Payment</string>
     <string name="full_name">Full name</string>
     <string name="username">Username</string>
     <string name="prompt_password_re_type">Re-type Password</string>
     <string name="gender">Gender</string>
     <string name="appbar_label_student_form">Student Form</string>
     <string name="save">Save</string>
-    <string name="title_activity_home">HomeActivity</string>
     <string name="title_home">Home</string>
     <string name="title_upload_file">Upload files</string>
     <string name="title_downloads">Downloads</string>
@@ -35,7 +23,7 @@
     <string name="upload">Upload</string>
     <string name="file_name">File name</string>
     <string name="create_new">Create new</string>
-    <string name="scan">Scan</string>
+    <string name="scan" translatable="false">Scan</string>
     <string name="settings">Settings</string>
     <string name="exit">Exit?</string>
     <string name="want_exit">Are you sure you want to exit?</string>
@@ -46,8 +34,6 @@
     <string name="account_info">Account Information</string>
     <string name="search">Search</string>
     <string name="filter">Filter</string>
-    <string name="title_activity_test">TestActivity</string>
-    <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="capture">Capture</string>
     <string name="description">Description</string>
@@ -60,28 +46,22 @@
     <string name="grid">Grid view</string>
     <string name="list_view">List view</string>
     <string name="close_camera">Close camera</string>
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
 
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="select_lang">Select language</string>
     <string name="theme">Theme</string>
-    <string name="dark_theme">Dark</string>
-    <string name="title_offline">Offline</string>
+    <string name="dark_theme">Dark theme</string>
+    <string name="title_offline" translatable="false">Offline</string>
     <string name="level">Level</string>
-    <string name="i">I</string>
-    <string name="ii">II</string>
-    <string name="iii">III</string>
-    <string name="iv">IV</string>
+    <string name="i" translatable="false">I</string>
+    <string name="ii" translatable="false">II</string>
+    <string name="iii" translatable="false">III</string>
+    <string name="iv" translatable="false">IV</string>
     <string name="semester">Semester</string>
+    <string name="school_content_manager" translatable="false">School Content Manager</string>
+    <string name="unable_to_open_image">Unable to open image</string>
+    <string name="language">Language</string>
+    <string name="report_or_suggest_new_resources">Report technical issues or suggest new features</string>
+    <string name="feedback" translatable="false">Feedback</string>
+    <string name="help">Help</string>
+    <string name="share">Share</string>
 </resources>

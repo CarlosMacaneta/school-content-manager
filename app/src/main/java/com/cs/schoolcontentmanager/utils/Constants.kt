@@ -1,12 +1,15 @@
 package com.cs.schoolcontentmanager.utils
 
+import com.cs.schoolcontentmanager.BuildConfig
+
 object Constants {
 
+    const val FILE_PROVIDER_AUTHORITY: String = BuildConfig.APPLICATION_ID + ".provider"
     const val BS_OPTIONS = "BS_OPTIONS"
     const val BS_FILTER = "filter"
 
-    const val FOLDER = "SCMScan"
-    const val FOLDER_FILES = "SCMFiles"
+    const val FOLDER = "scm_scan"
+    const val FOLDER_FILES = "scm_files"
     const val FILE_NAME_KEY = "scm_scan_"
     const val FILENAME = "yyyy-MM-dd-HH-mm-ss-SSS"
     const val PHOTO_EXTENSION = ".jpg"
@@ -43,6 +46,7 @@ object Constants {
     const val PDF = ".pdf"
     const val PNG = ".png"
     const val JPEG = ".jpeg"
+    const val JPG = ".jpg"
     const val DOC = ".doc"
     const val DOCX = ".docx"
     const val XLS = ".xls"
@@ -51,5 +55,7 @@ object Constants {
     const val PPTX = ".pptx"
 
     //
-    const val NAME_PROP = "name"
+    const val WORD = "https://play.google.com/store/apps/details?id=com.microsoft.office.word&hl=en&gl=US"
+    const val EXCEL = "https://play.google.com/store/apps/details?id=com.microsoft.office.excel&hl=en&gl=US"
+    const val POWER_POINT = "https://play.google.com/store/apps/details?id=com.microsoft.office.powerpoint&hl=en&gl=US"
 }

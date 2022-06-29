@@ -8,11 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.fragment.app.activityViewModels
+import com.cs.schoolcontentmanager.R
 import com.cs.schoolcontentmanager.databinding.BottomSheetOptionsDialogBinding
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.fragment.FileDetailsFragment
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.fragment.ScanFragment
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup.fileName
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup.intentFileChooser
+import com.cs.schoolcontentmanager.presenters.ui.home.viewmodel.HomeViewModel
+import com.cs.schoolcontentmanager.utils.Util.isDarkMode
 import com.cs.schoolcontentmanager.utils.Util.launchFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.scopes.ActivityScoped
@@ -23,6 +28,7 @@ import javax.inject.Inject
 class ModalBottomSheetOptions @Inject constructor(): BottomSheetDialogFragment() {
 
     private lateinit var binding: BottomSheetOptionsDialogBinding
+    private val homeViewModel: HomeViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

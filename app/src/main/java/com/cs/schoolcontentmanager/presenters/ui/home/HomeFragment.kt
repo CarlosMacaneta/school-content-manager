@@ -2,9 +2,11 @@ package com.cs.schoolcontentmanager.presenters.ui.home
 
 import android.app.DownloadManager
 import android.content.Context
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
@@ -24,10 +26,13 @@ import com.cs.schoolcontentmanager.utils.Constants.BS_FILTER
 import com.cs.schoolcontentmanager.utils.Constants.FOLDER_FILES
 import com.cs.schoolcontentmanager.utils.Constants.GRID_VIEW
 import com.cs.schoolcontentmanager.utils.Constants.LIST_VIEW
+import com.cs.schoolcontentmanager.utils.Util.isDarkMode
 import com.cs.schoolcontentmanager.utils.Util.isLandscape
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -53,6 +58,8 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         navigateOut()
+
+        Toast.makeText(requireContext(), isDarkMode(requireContext()).toString(), Toast.LENGTH_SHORT).show()
     }
 
     private fun initRecyclerView() {
@@ -100,11 +107,13 @@ class HomeFragment : Fragment() {
                 val searchView = item.actionView as SearchView
 
                 searchView.queryHint = getString(R.string.file_name)
-                searchView.isIconified = true
+                searchView.isIconified = false
+                val searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text) as EditText
+                searchEditText.setTextColor(Color.WHITE)
+                searchEditText.setHintTextColor(Color.WHITE)
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(p0: String?): Boolean {
-                        Toast.makeText(requireContext(), p0.toString(), Toast.LENGTH_SHORT).show()
                         return true
                     }
 
@@ -163,8 +172,11 @@ class HomeFragment : Fragment() {
         homeViewModel.downloadFile(genFile, file) {
             val downloadManager = requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
             downloadManager.enqueue(it)
+
+            Timber.e("Path: ${genFile.path}, \nCanonicalPath: ${genFile.canonicalPath}, \nAbsolutePath: ${genFile.absolutePath}")
+
             homeViewModel.createFile(File(
-                file.name, file.type, file.subject, Uri.fromFile(genFile).toString(),
+                file.name, file.type, file.subject, genFile.path,
                 file.publishedBy
             ))
         }

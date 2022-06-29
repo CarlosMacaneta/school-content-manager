@@ -9,6 +9,8 @@ import androidx.lifecycle.viewModelScope
 import com.cs.schoolcontentmanager.domain.model.Course
 import com.cs.schoolcontentmanager.domain.model.File
 import com.cs.schoolcontentmanager.domain.usecase.FileUseCases
+import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup
+import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup.fileExists
 import com.cs.schoolcontentmanager.utils.Constants.LIST_VIEW
 import com.google.android.gms.tasks.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +18,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
+import kotlin.io.path.Path
+import kotlin.io.path.exists
 
 @HiltViewModel
 class HomeViewModel
@@ -28,6 +33,11 @@ class HomeViewModel
         value = LIST_VIEW
     }
     val viewState: LiveData<String> = _viewState
+
+    private val _isFilterEnabled = MutableLiveData<Boolean>().apply {
+        value = false
+    }
+    val isFilterEnabled: LiveData<Boolean> = _isFilterEnabled
 
     private val _texGetFilesError = MutableLiveData<String>()
     val texGetFilesError: LiveData<String> = _texGetFilesError
@@ -51,6 +61,10 @@ class HomeViewModel
 
     fun setViewState(viewState: String) {
         _viewState.value = viewState
+    }
+
+    fun setFilterEnabled(isFilterEnabled: Boolean) {
+        _isFilterEnabled.value = isFilterEnabled
     }
 
     fun createFile(file: File) {
@@ -125,7 +139,9 @@ class HomeViewModel
         getFilesJob?.cancel()
         getFilesJob = fileUseCases.getLocalFiles()
             .onEach {
-                _localFiles.value = it
+                _localFiles.value = it.filter { item ->
+                    java.io.File(item.uri).exists()
+                }
             }
             .launchIn(viewModelScope)
     }

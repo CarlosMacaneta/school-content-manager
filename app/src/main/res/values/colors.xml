@@ -2,8 +2,12 @@
 <resources>
     <color name="colorPrimary">#008061</color>
     <color name="colorPrimaryVariant">#41A089</color>
-    <color name="colorPrimaryDark">#008061</color>
+    <color name="colorPrimaryDark">#1F1F1F</color>
+    <color name="colorPrimaryVariantDark">#2F3135</color>
     <color name="colorSecondary">#389C84</color>
+    <color name="colorSecondaryDark">#202224</color>
+    <color name="colorSecondaryVariant">#359A82</color>
+    <color name="colorSecondaryVariantDark">#2D2F31</color>
     <color name="orange_d1">#D16244</color>
     <color name="yellow_bf">#BF8910</color>
     <color name="yellow_ff">#FFE3A2</color>
@@ -13,6 +17,10 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="bottomnav_color">#2B353B</color>
+    <color name="contentColor">#404243</color>
+    <color name="contentColor_2">#202224</color>
+    <color name="dividerColor">#2F3135</color>
+    <color name="grey_4">#404040</color>
 
     <color name="overlay_dark_10">#1A000000</color>
     <color name="overlay_dark_20">#33000000</color>

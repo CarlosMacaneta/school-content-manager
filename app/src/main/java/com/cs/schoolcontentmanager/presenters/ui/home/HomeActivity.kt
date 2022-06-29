@@ -1,5 +1,6 @@
 package com.cs.schoolcontentmanager.presenters.ui.home
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
@@ -14,6 +15,7 @@ import com.cs.schoolcontentmanager.utils.Constants.BS_OPTIONS
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -30,6 +32,18 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
+
+        val languageToLoad = "pt" // your language
+
+        val locale = Locale(languageToLoad)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        baseContext.resources.updateConfiguration(
+            config,
+            baseContext.resources.displayMetrics
+        )
+
         setContentView(binding.root)
 
         setSupportActionBar(binding.topAppBar)
@@ -38,6 +52,7 @@ class HomeActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration.Builder(navController.graph).build()
         binding.topAppBar.setupWithNavController(navController, appBarConfiguration)
 
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
         NavigationUI.setupWithNavController(binding.navView, navController)
 
         CameraSetup.cameraPermission(this)
@@ -51,7 +66,4 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return super.onSupportNavigateUp()
-    }
 }

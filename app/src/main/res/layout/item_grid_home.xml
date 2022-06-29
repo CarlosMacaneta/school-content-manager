@@ -35,6 +35,7 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -54,6 +55,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/file_name"
                     android:maxLines="2"
+                    android:scrollbars="none"
                     android:textAlignment="center"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/grey_90"

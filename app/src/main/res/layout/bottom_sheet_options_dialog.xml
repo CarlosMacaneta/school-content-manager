@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_rounded_corners"
     android:orientation="vertical">
 
     <TextView
@@ -38,7 +37,7 @@
                 android:background="@drawable/circle"
                 android:src="@drawable/ic_cloud_upload"
                 android:contentDescription="@string/upload"
-                app:tint="?colorPrimary" />
+                app:tint="@color/colorPrimary" />
 
             <Space
                 android:layout_width="match_parent"
@@ -69,7 +68,7 @@
                 android:background="@drawable/circle"
                 android:src="@drawable/ic_scan"
                 android:contentDescription="@string/scan"
-                app:tint="?colorPrimary" />
+                app:tint="@color/colorPrimary" />
 
             <Space
                 android:layout_width="match_parent"

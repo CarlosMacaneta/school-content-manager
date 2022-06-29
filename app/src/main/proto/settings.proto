@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "com.cs.schoolcontentmanager";
+option java_multiple_files = true;
+
+message Settings {
+  bool dark_mode = 1;
+  string lang = 2;
+}

@@ -1,37 +1,53 @@
 package com.cs.schoolcontentmanager.presenters.ui.home.download
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.view.*
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.cs.schoolcontentmanager.BuildConfig
 import com.cs.schoolcontentmanager.R
 import com.cs.schoolcontentmanager.databinding.FragmentFileManagerBinding
 import com.cs.schoolcontentmanager.domain.model.File
 import com.cs.schoolcontentmanager.presenters.ui.home.adapter.FileAdapter
 import com.cs.schoolcontentmanager.presenters.ui.home.adapter.ICallbackResult
+import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup.fileSize
+import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup.launchFile
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup.mimeTypes
+import com.cs.schoolcontentmanager.presenters.ui.home.filter.FilterBottomSheetFragment
 import com.cs.schoolcontentmanager.presenters.ui.home.viewmodel.HomeViewModel
+import com.cs.schoolcontentmanager.presenters.ui.utils.Utility.intentDownload
 import com.cs.schoolcontentmanager.utils.Constants
 import com.cs.schoolcontentmanager.utils.Constants.DOC
 import com.cs.schoolcontentmanager.utils.Constants.DOCX
 import com.cs.schoolcontentmanager.utils.Constants.DOWNLOADED_FILES_VIEW
+import com.cs.schoolcontentmanager.utils.Constants.EXCEL
 import com.cs.schoolcontentmanager.utils.Constants.JPEG
+import com.cs.schoolcontentmanager.utils.Constants.JPG
 import com.cs.schoolcontentmanager.utils.Constants.PDF
 import com.cs.schoolcontentmanager.utils.Constants.PNG
+import com.cs.schoolcontentmanager.utils.Constants.POWER_POINT
 import com.cs.schoolcontentmanager.utils.Constants.PPT
 import com.cs.schoolcontentmanager.utils.Constants.PPTX
+import com.cs.schoolcontentmanager.utils.Constants.WORD
 import com.cs.schoolcontentmanager.utils.Constants.XLS
 import com.cs.schoolcontentmanager.utils.Constants.XLSX
 import com.cs.schoolcontentmanager.utils.Util
 import com.pspdfkit.configuration.activity.PdfActivityConfiguration
 import com.pspdfkit.ui.PdfActivity
 import dagger.hilt.android.AndroidEntryPoint
+import okio.Okio
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -43,6 +59,7 @@ class DownloadedFilesFragment : Fragment() {
     private val homeViewModel: HomeViewModel by activityViewModels()
 
     @Inject lateinit var config: PdfActivityConfiguration
+    @Inject lateinit var filter: FilterBottomSheetFragment
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,36 +88,67 @@ class DownloadedFilesFragment : Fragment() {
                 override fun getResultCallback(itemView: View, position: Int, file: File) {
                     val intent = Intent()
                     intent.action = Intent.ACTION_VIEW
+                    intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
 
                     when(file.type) {
-                        PDF -> PdfActivity.showDocument(requireContext(), Uri.parse(file.uri), config)
-                        PNG, JPEG -> {
-                            intent.setDataAndType(Uri.parse(file.uri), "image/*")
-                            startActivity(intent)
+                        PDF -> PdfActivity.showDocument(requireContext(), launchFile(requireContext(), file.uri), config)
+                        PNG, JPEG, JPG -> {
+                            try {
+                                intent.setDataAndType(launchFile(requireContext(), file.uri), "image/*")
+                                startActivity(intent)
+                            } catch (e: Exception) {
+                                Timber.tag("DFF").e(e.message)
+                                Timber.tag("DFF").e(java.io.File(file.uri).name)
+                                Toast.makeText(requireContext(), getString(R.string.unable_to_open_image), Toast.LENGTH_SHORT).show()
+                            }
                         }
                         DOC -> {
-                            intent.setDataAndType(Uri.parse(file.uri), mimeTypes.first())
-                            startActivity(intent)
+                            try {
+                                intent.setDataAndType(launchFile(requireContext(), file.uri), mimeTypes.first())
+                                startActivity(intent)
+                            } catch (e: Exception) {
+                                startActivity(intentDownload(WORD))
+                            }
                         }
                         DOCX -> {
-                            intent.setDataAndType(Uri.parse(file.uri), mimeTypes[1])
-                            startActivity(intent)
+                            try{
+                                intent.setDataAndType(launchFile(requireContext(), file.uri), mimeTypes[1])
+                                startActivity(intent)
+                            } catch (e: Exception) {
+                                startActivity(intentDownload(WORD))
+                            }
                         }
                         PPT -> {
-                            intent.setDataAndType(Uri.parse(file.uri), mimeTypes[2])
-                            startActivity(intent)
+                            try{
+                                intent.setDataAndType(launchFile(requireContext(), file.uri), mimeTypes[2])
+                                startActivity(intent)
+                            } catch (e: Exception) {
+                                startActivity(intentDownload(POWER_POINT))
+                            }
                         }
                         PPTX -> {
-                            intent.setDataAndType(Uri.parse(file.uri), mimeTypes[3])
-                            startActivity(intent)
+                            try{
+                                intent.setDataAndType(launchFile(requireContext(), file.uri), mimeTypes[3])
+                                startActivity(intent)
+                            } catch (e: Exception) {
+                                startActivity(intentDownload(POWER_POINT))
+                            }
                         }
                         XLS -> {
-                            intent.setDataAndType(Uri.parse(file.uri), mimeTypes[4])
-                            startActivity(intent)
+                            try{
+                                intent.setDataAndType(launchFile(requireContext(), file.uri), mimeTypes[4])
+                                startActivity(intent)
+                            } catch (e: Exception) {
+                                startActivity(intentDownload(EXCEL))
+                            }
                         }
                         XLSX -> {
-                            intent.setDataAndType(Uri.parse(file.uri), mimeTypes[5])
-                            startActivity(intent)
+                            try {
+                                intent.setDataAndType(launchFile(requireContext(), file.uri), mimeTypes[5])
+                                startActivity(intent)
+                            } catch (e: Exception) {
+                                startActivity(intentDownload(EXCEL))
+                            }
                         }
                     }
                 }
@@ -138,11 +186,13 @@ class DownloadedFilesFragment : Fragment() {
                 val searchView = item.actionView as SearchView
 
                 searchView.queryHint = getString(R.string.file_name)
-                searchView.isIconified = true
+                searchView.isIconified = false
+                val searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text) as EditText
+                searchEditText.setTextColor(Color.WHITE)
+                searchEditText.setHintTextColor(Color.WHITE)
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(p0: String?): Boolean {
-                        Toast.makeText(requireContext(), p0.toString(), Toast.LENGTH_SHORT).show()
                         return true
                     }
 
@@ -181,7 +231,7 @@ class DownloadedFilesFragment : Fragment() {
                 true
             }
             else -> {
-                Toast.makeText(requireContext(), "Filter", Toast.LENGTH_SHORT).show()
+                filter.show(requireActivity().supportFragmentManager, Constants.BS_FILTER)
                 true
             }
         }

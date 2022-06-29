@@ -1,26 +1,34 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
-    <PreferenceCategory app:title="@string/messages_header">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
-
+    <Preference  />
+    <PreferenceCategory
+        app:title="@string/language">
         <ListPreference
             app:defaultValue="en"
             app:entries="@array/lang_entries"
             app:entryValues="@array/lang_values"
             app:key="lang"
             app:title="@string/select_lang"
-            app:useSimpleSummaryProvider="true" />
+            android:icon="@drawable/ic_language"
 
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/theme">
         <SwitchPreferenceCompat
-            app:key="dark_theme"
-            app:title="@string/dark_theme" />
+            app:key="theme"
+            app:title="@string/dark_theme"
+            android:icon="@drawable/night_mode" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="help_category"
+        app:title="@string/help">
+        <Preference
+            app:key="feedback"
+            app:summary="@string/report_or_suggest_new_resources"
+            app:title="@string/feedback"
+            android:icon="@drawable/ic_feedback"/>
     </PreferenceCategory>
 </PreferenceScreen>

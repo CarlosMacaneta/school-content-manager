@@ -38,9 +38,12 @@ class FilterBottomSheetFragment @Inject constructor(): BottomSheetDialogFragment
                 val a = SpinnerAdapter(
                     requireContext(),
                     R.layout.spinner_item,
-                    it[position].subjects.toMutableList()
+                    it[position].subjects.filter { subject ->
+                        subject.semester == 1 || subject.level == 1
+                    }.toMutableList()
                 )
                 binding.subjectItem.setAdapter(a)
+                homeViewModel.setFilterEnabled(true)
             }
         }
     }

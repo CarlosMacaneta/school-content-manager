@@ -3,8 +3,11 @@ package com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
+import androidx.core.content.FileProvider
 import com.cs.schoolcontentmanager.presenters.ui.home.bottomsheet.util.FileSetup.getOutputDirectory
 import com.cs.schoolcontentmanager.utils.Constants
+import com.cs.schoolcontentmanager.utils.Constants.FILE_PROVIDER_AUTHORITY
 import com.cs.schoolcontentmanager.utils.Constants.FOLDER
 import com.cs.schoolcontentmanager.utils.Constants.PDF
 import com.pspdfkit.document.processor.*
@@ -34,7 +37,15 @@ object GeneratePDF {
                 Timber.e("$progress")
             }
 
-        return Uri.fromFile(pdf)
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            FileProvider.getUriForFile(
+                context,
+                FILE_PROVIDER_AUTHORITY,
+                pdf
+            )
+        } else {
+            Uri.fromFile(pdf)
+        }
     }
 
     private fun createFile(baseFolder: File) =

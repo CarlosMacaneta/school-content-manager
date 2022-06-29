@@ -6,9 +6,15 @@ import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.webkit.MimeTypeMap
+import androidx.core.content.FileProvider
+import com.cs.schoolcontentmanager.BuildConfig
+import com.cs.schoolcontentmanager.utils.Constants
 import com.cs.schoolcontentmanager.utils.Constants.CONTENT
+import com.cs.schoolcontentmanager.utils.Constants.FILE_PROVIDER_AUTHORITY
 import timber.log.Timber
 import java.io.File
 
@@ -95,4 +101,20 @@ object FileSetup {
         return if (mediaDir != null && mediaDir.exists())
             mediaDir else appContext.filesDir
     }
+
+    fun fileExists(uri: String): Boolean {
+        val file = File(uri)
+        return file.exists()
+    }
+
+    fun launchFile(context: Context, uri: String): Uri =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            FileProvider.getUriForFile(
+                context,
+                FILE_PROVIDER_AUTHORITY,
+                java.io.File(uri)
+            )
+        else
+            Uri.parse(uri)
+
 }

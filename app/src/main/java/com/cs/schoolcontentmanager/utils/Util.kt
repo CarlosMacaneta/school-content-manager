@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.res.Configuration
 import android.content.res.Configuration.ORIENTATION_LANDSCAPE
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
@@ -83,6 +84,9 @@ object Util {
 
     fun isLandscape(context: Context): Boolean =
         context.resources.configuration.orientation == ORIENTATION_LANDSCAPE
+
+    fun isDarkMode(context: Context): Boolean =
+        context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun createNotificationChannel(context: Context, importance: Int = NotificationManager.IMPORTANCE_DEFAULT) {
